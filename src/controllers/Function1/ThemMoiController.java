@@ -235,7 +235,7 @@ public class ThemMoiController {
         try {
             try ( Connection connection = MysqlConnection.getMysqlConnection()) {
                 String query = "SELECT id FROM nhankhau WHERE cmnd LIKE '" + cmnd + "' "
-                        + "AND ( tinhtrang LIKE 'sinh sống' OR tinhtrang LIKE null)";
+                        + "AND ( tinhtrang LIKE 'sinh sống' OR tinhtrang LIKE 'cập nhật')";
                 try ( PreparedStatement st = connection.prepareStatement(query)) {
                     ResultSet rs = st.executeQuery();
                     if (rs.next()) {

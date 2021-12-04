@@ -29,36 +29,53 @@ public class ThongKe extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 255, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "STT", "Mã sổ hộ khẩu", "Số CMT/CCCD", "Họ tên", "Ngày sinh", "Giới tính", "Địa chỉ hiện nay"
+                "STT", "Mã hộ khẩu", "Số CMT/CCCD", "Họ tên", "Ngày sinh", "Giới tính", "Địa chỉ hiện nay", "Tình trạng"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jTable.setRowHeight(22);
+        jScrollPane1.setViewportView(jTable);
+        if (jTable.getColumnModel().getColumnCount() > 0) {
+            jTable.getColumnModel().getColumn(0).setMaxWidth(35);
+            jTable.getColumnModel().getColumn(1).setMinWidth(70);
+            jTable.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTable.getColumnModel().getColumn(2).setMinWidth(100);
+            jTable.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTable.getColumnModel().getColumn(3).setMinWidth(120);
+            jTable.getColumnModel().getColumn(3).setMaxWidth(120);
+            jTable.getColumnModel().getColumn(4).setMinWidth(100);
+            jTable.getColumnModel().getColumn(4).setMaxWidth(100);
+            jTable.getColumnModel().getColumn(5).setMinWidth(60);
+            jTable.getColumnModel().getColumn(5).setMaxWidth(60);
+            jTable.getColumnModel().getColumn(7).setMinWidth(80);
+            jTable.getColumnModel().getColumn(7).setMaxWidth(80);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,6 +138,6 @@ public class ThongKe extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 }

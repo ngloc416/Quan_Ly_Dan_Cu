@@ -292,6 +292,7 @@ public class NhanKhau_TamVang extends javax.swing.JFrame {
         if (txtCmnd.getText().trim().length() != 8
                 && txtCmnd.getText().trim().length() != 9
                 && txtCmnd.getText().trim().length() != 12) {
+            check = false;
             JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else if (tmController.checkCmnd(txtCmnd.getText().trim())) {
             check = false;
@@ -307,7 +308,7 @@ public class NhanKhau_TamVang extends javax.swing.JFrame {
             txtGioiTinh.setText(nhanKhau.getGioiTinh());
             txtQuocTich.setText(nhanKhau.getQuocTich());
             txtNoiThuongTru.setText(nhanKhau.getDcHienNay());
-        }
+        }        
     }//GEN-LAST:event_btnKiemTraActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
@@ -317,7 +318,50 @@ public class NhanKhau_TamVang extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-        
+        if (txtCmnd.getText().trim().length() != 8
+                && txtCmnd.getText().trim().length() != 9
+                && txtCmnd.getText().trim().length() != 12) {
+            check = false;
+            JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
+        } else if (check && checkNullInForm()) {
+            NhanKhauModel nhanKhau = new NhanKhauModel();
+            nhanKhau = nkController.findByCondition(txtCmnd.getText().trim()).get(0);
+            NhanKhauModel nhanKhau2 = new NhanKhauModel();
+            nhanKhau2 = nkController.findByCondition(txtCmnd.getText().trim()).get(0);
+
+            nhanKhau.setTinhTrang("tạm vắng");
+            nhanKhau.setDcHienNay(txtNoiTamTru.getText().trim());
+            nhanKhau.setTuNgay(dateTuNgay.getDate());
+            nhanKhau.setDenNgay(dateDenNgay.getDate());
+            cnController.capNhat(nhanKhau.getId(), nhanKhau);
+
+            nhanKhau2.setTinhTrang("cập nhật");
+            tmController.themNhanKhau(nhanKhau2);
+            String qhChuHo = null;
+
+            try ( Connection connection = MysqlConnection.getMysqlConnection()) {
+                String query = "SELECT quanhechuho  FROM giadinh WHERE idnhankhau = " + nhanKhau2.getId();
+                try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                    ResultSet rs = preparedStatement.executeQuery();
+
+                    if (rs.next()) {
+                        qhChuHo = rs.getString("quanhechuho");
+                    }
+                }
+            } catch (ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }
+            tmController.themGiaDinh(nhanKhau2.getCmnd(), nhanKhau2.getMaHoKhau(), qhChuHo);
+
+            JOptionPane.showMessageDialog(rootPane, "Đăng ký tạm vắng thành công!");
+            MainFrame.it.setEnabled(true);
+            dispose();
+        } else if (!checkNullInForm()) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng điền hết các trường!", "Warning!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Chưa nhấn nút kiểm tra!", "Warning!", JOptionPane.WARNING_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     /**
