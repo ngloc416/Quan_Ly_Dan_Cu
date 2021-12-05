@@ -83,6 +83,7 @@ public class HoKhauController {
 
                     while (rs.next()) {
                         HoKhauModel hoKhau = new HoKhauModel();
+                        
                         hoKhau.setId(rs.getInt("id"));
                         hoKhau.setMaHoKhau(rs.getString("mahokhau"));
                         hoKhau.setCmndChuHo(rs.getString("cmndchuho"));
@@ -137,13 +138,15 @@ public class HoKhauController {
                         + "(SELECT DISTINCT cmnd, hoten FROM nhankhau) AS A "
                         + "ON hokhau.cmndchuho = A.cmnd "
                         + "WHERE (mahokhau LIKE '%" + key + "%' OR hoten LIKE '%" + key + "%' OR cmndchuho LIKE '%" + key + "%') "
-                        + "AND tinhtrang LIKE 'sinh sống' "
+                        + "AND (tinhtrang LIKE 'sinh sống' "
+                        + "OR (tinhtrang LIKE 'chuyển đi' AND ngaychuyendi > curdate())) "
                         + "ORDER BY mahokhau";
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     ResultSet rs = preparedStatement.executeQuery();
 
                     while (rs.next()) {
                         HoKhauModel hoKhau = new HoKhauModel();
+                        
                         hoKhau.setId(rs.getInt("id"));
                         hoKhau.setMaHoKhau(rs.getString("mahokhau"));
                         hoKhau.setCmndChuHo(rs.getString("cmndchuho"));

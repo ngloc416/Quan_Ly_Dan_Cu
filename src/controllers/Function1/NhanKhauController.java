@@ -36,7 +36,7 @@ public class NhanKhauController {
 
     public NhanKhauController() {
     }
-    
+
     public NhanKhauController(JTable table, JTextField txtSearch) {
         this.tableModel = (DefaultTableModel) table.getModel();
         this.txtSearch = txtSearch;
@@ -65,8 +65,10 @@ public class NhanKhauController {
         tableModel.setRowCount(0);
 
         listNK.forEach(item -> {
-            tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, item.getMaHoKhau(), item.getCmnd(), 
-                item.getHoTen(), item.getNgaySinh(), item.getGioiTinh(), item.getDcHienNay(), item.getTinhTrang()});
+            tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, item.getMaHoKhau(), item.getCmnd(),
+                item.getHoTen(), item.getNgaySinh(), item.getGioiTinh(), item.getDcHienNay(),
+                (("cập nhật".equals(item.getTinhTrang().trim())) || ("chuyển đi".equals(item.getTinhTrang().trim())))
+                ? "sinh sống" : item.getTinhTrang()});
         });
     }
 
@@ -78,8 +80,10 @@ public class NhanKhauController {
                         + "(SELECT idnhankhau, mahokhau FROM giadinh INNER JOIN hokhau ON hokhau.id = giadinh.idhokhau) AS A "
                         + "ON nhankhau.id = A.idnhankhau "
                         + "WHERE tinhtrang LIKE 'sinh sống' "
-                        + "OR (tinhtrang LIKE 'tạm trú' AND denngay >= curdate()) "
-                        + "OR (tinhtrang LIKE 'tạm vắng' AND denngay >= curdate()) "
+                        + "OR (tinhtrang LIKE 'tạm trú' AND tungay <= curdate() AND denngay >= curdate()) "
+                        + "OR (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) "
+                        + "OR (tinhtrang LIKE 'chuyển đi' AND ngaychuyendi > curdate()) "
+                        + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate()) "
                         + "ORDER BY mahokhau";
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     ResultSet rs = preparedStatement.executeQuery();
@@ -160,14 +164,17 @@ public class NhanKhauController {
                         + "ON nhankhau.id = A.idnhankhau "
                         + "WHERE (cmnd LIKE '%" + key + "%' OR hoten LIKE '%" + key + "%') "
                         + "AND (tinhtrang LIKE 'sinh sống' "
-                        + "OR (tinhtrang LIKE 'tạm trú' AND denngay >= curdate()) "
-                        + "OR (tinhtrang LIKE 'tạm vắng' AND denngay >= curdate())) "
+                        + "OR (tinhtrang LIKE 'tạm trú' AND tungay <= curdate() AND denngay >= curdate()) "
+                        + "OR (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) "
+                        + "OR (tinhtrang LIKE 'chuyển đi' AND ngaychuyendi > curdate()) "
+                        + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate())) "
                         + "ORDER BY mahokhau";
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     ResultSet rs = preparedStatement.executeQuery();
 
                     while (rs.next()) {
                         NhanKhauModel nhanKhau = new NhanKhauModel();
+                        
                         nhanKhau.setId(rs.getInt("id"));
                         nhanKhau.setMaHoKhau(rs.getString("mahokhau"));
                         nhanKhau.setHoTen(rs.getString("hoten"));
@@ -187,7 +194,8 @@ public class NhanKhauController {
                         nhanKhau.setNoiCap(rs.getString("noicap"));
                         nhanKhau.setNgayChuyenDen(rs.getDate("ngaychuyenden"));
                         nhanKhau.setNoiTruocChuyenDen(rs.getString("noitruocchuyenden"));
-                        nhanKhau.setNgayChuyenDi(rs.getDate("noiden"));
+                        nhanKhau.setNgayChuyenDi(rs.getDate("ngaychuyendi"));
+                        nhanKhau.setNoiDen(rs.getString("noiden"));
                         nhanKhau.setTinhTrang(rs.getString("tinhtrang"));
                         nhanKhau.setTuNgay(rs.getDate("tungay"));
                         nhanKhau.setDenNgay(rs.getDate("denngay"));

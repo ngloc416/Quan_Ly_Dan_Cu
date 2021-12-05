@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import models.HoKhauModel;
 import models.NhanKhauModel;
 import utilities.MysqlConnection;
 
@@ -19,7 +20,7 @@ import utilities.MysqlConnection;
  */
 public class CapNhatController {
 
-    public void capNhat(int id, NhanKhauModel nhanKhau) {
+    public void capNhatNK(int id, NhanKhauModel nhanKhau) {
         try {
             try ( Connection connection = MysqlConnection.getMysqlConnection()) {
                 String query = "UPDATE nhankhau SET hoten = ?, bidanh = ?, tongiao = ?, quoctich = ?, nghenghiep = ?, "
@@ -63,6 +64,28 @@ public class CapNhatController {
                     }
                     st.setString(15, nhanKhau.getDcHienNay());
 
+                    st.execute();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void capNhatHK(int id, HoKhauModel hoKhau) {
+        try {
+            try ( Connection connection = MysqlConnection.getMysqlConnection()) {
+                String query = "UPDATE hokhau SET tinhtrang = ?, ngaychuyendi = ? WHERE id = " + id;
+                try ( PreparedStatement st = connection.prepareStatement(query)) {
+
+                    st.setString(1, hoKhau.getTinhTrang());
+                    if (hoKhau.getNgayChuyenDi()!= null) {
+                        Date ngayChuyenDi = new Date(hoKhau.getNgayChuyenDi().getTime());
+                        st.setDate(2, ngayChuyenDi);
+                    } else {
+                        st.setDate(2, null);
+                    }
+                    
                     st.execute();
                 }
             }

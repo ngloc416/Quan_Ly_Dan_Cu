@@ -105,10 +105,33 @@ public class ThemMoiController {
         });
     }
 
-    //Kiem tra nhan khau da ton tai trong db chua
-    public boolean checkCmnd(String cmnd) {
+    //Kiem tra nhan khau da ton tai trong db voi tinh trang dang sinh song hoac tam tru chua
+    public boolean checkCmndSs_Tt(String cmnd) {
 
-        List<HoKhauModel> list = new ArrayList<>();
+        try {
+            try ( Connection connection = MysqlConnection.getMysqlConnection()) {
+                String query = "SELECT cmnd FROM nhankhau "
+                        + "WHERE nhankhau.tinhtrang LIKE 'sinh sống' "
+                        + "OR (tinhtrang LIKE 'tạm trú' AND denngay >= curdate()) ";
+                try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                    ResultSet rs = preparedStatement.executeQuery();
+
+                    while (rs.next()) {
+                        if (cmnd.equals(rs.getString("cmnd"))) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+        return true;
+    }
+
+    //check cmnd xem da ton tai trong db voi tinh trang dang sinh song chua
+    public boolean checkCmndSs(String cmnd) {
+
         try {
             try ( Connection connection = MysqlConnection.getMysqlConnection()) {
                 String query = "SELECT cmnd FROM nhankhau "

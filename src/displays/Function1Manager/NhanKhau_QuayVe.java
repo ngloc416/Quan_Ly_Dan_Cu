@@ -83,7 +83,7 @@ public class NhanKhau_QuayVe extends javax.swing.JFrame {
         dateNgaySinh = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Quay về");
+        setTitle("Đăng ký quay về");
         setLocationByPlatform(true);
         setResizable(false);
 
@@ -304,7 +304,7 @@ public class NhanKhau_QuayVe extends javax.swing.JFrame {
             txtNoiThuongTru.setText(nhanKhau.getDcHienNay());
         } else {
             check = false;
-            if (tmController.checkCmnd(txtCmnd.getText().trim())) {
+            if (tmController.checkCmndSs(txtCmnd.getText().trim())) {
                 JOptionPane.showMessageDialog(rootPane, "Số CMT/CCCD không có trong hệ thống!", "Warning!", JOptionPane.WARNING_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Số CMT/CCCD chưa đăng ký tạm vắng!", "Warning!", JOptionPane.WARNING_MESSAGE);
@@ -326,7 +326,7 @@ public class NhanKhau_QuayVe extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else if (check) {
             nhanKhau.setTinhTrang("sinh sống");
-            cnController.capNhat(nhanKhau.getId(), nhanKhau);
+            cnController.capNhatNK(nhanKhau.getId(), nhanKhau);
 
             NhanKhauModel nk = new NhanKhauModel();
             try ( Connection connection = MysqlConnection.getMysqlConnection()) {
@@ -368,9 +368,10 @@ public class NhanKhau_QuayVe extends javax.swing.JFrame {
             } catch (ClassNotFoundException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
             }
-
-            nk.setDenNgay(new Date(new Date().getTime() - 86400000));
-            cnController.capNhat(nk.getId(), nk);
+            if ( nk.getDenNgay().getTime() >= new Date().getTime()) {
+                nk.setDenNgay(new Date(new Date().getTime() - 86400000));
+            }
+            cnController.capNhatNK(nk.getId(), nk);
 
             JOptionPane.showMessageDialog(rootPane, "Xác nhận thành công!");
             MainFrame.it.setEnabled(true);

@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Th&#xea;m m&#x1edb;i nh&#xe2;n kh&#x1ea9;u"/>
+    <Property name="title" type="java.lang.String" value="Th&#xea;m nh&#xe2;n kh&#x1ea9;u m&#x1edb;i"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="cc" green="ff" red="ff" type="rgb"/>
     </Property>
@@ -300,13 +300,10 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel35" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="jLabel40" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="dateNgayChuyenDen" pref="32" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel35" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="jLabel40" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="dateNgayChuyenDen" pref="32" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>

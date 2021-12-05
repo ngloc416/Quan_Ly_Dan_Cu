@@ -73,6 +73,7 @@ public class NhanKhau_CapNhat extends javax.swing.JFrame {
         txtNgheNghiep = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cập nhật thông tin");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -234,7 +235,7 @@ public class NhanKhau_CapNhat extends javax.swing.JFrame {
             && txtCmnd.getText().trim().length() != 9
             && txtCmnd.getText().trim().length() != 12) {
             JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
-        } else if (!controller.checkCmnd(txtCmnd.getText().trim())) {
+        } else if (!controller.checkCmndSs_Tt(txtCmnd.getText().trim())) {
             JOptionPane.showMessageDialog(rootPane, "Số CMT/CCCD đã tồn tại!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else {
             

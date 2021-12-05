@@ -157,7 +157,7 @@ public class NhanKhau_ThemMoi extends javax.swing.JFrame {
         btnHuy = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Thêm mới nhân khẩu");
+        setTitle("Thêm nhân khẩu mới");
         setBackground(new java.awt.Color(255, 255, 204));
         setLocationByPlatform(true);
         setResizable(false);
@@ -483,12 +483,10 @@ public class NhanKhau_ThemMoi extends javax.swing.JFrame {
                             .addComponent(txtNoiCap, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateNgayChuyenDen, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dateNgayChuyenDen, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel31)))
@@ -886,7 +884,7 @@ public class NhanKhau_ThemMoi extends javax.swing.JFrame {
                 && txtCmnd.getText().trim().length() != 12) {
             check = false;
             JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
-        } else if (!controller.checkCmnd(txtCmnd.getText().trim())) {
+        } else if (!controller.checkCmndSs_Tt(txtCmnd.getText().trim())) {
             check = false;
             JOptionPane.showMessageDialog(rootPane, "Số CMT/CCCD đã tồn tại!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else if (!checkNullInForm()) {

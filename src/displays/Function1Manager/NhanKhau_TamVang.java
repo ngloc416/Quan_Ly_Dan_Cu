@@ -55,10 +55,7 @@ public class NhanKhau_TamVang extends javax.swing.JFrame {
 
     private boolean checkNullInForm() {
         return !(txtCmnd.getText().trim().isEmpty()
-                || txtHoTen.getText().trim().isEmpty()
-                || txtNoiThuongTru.getText().trim().isEmpty()
-                || txtNoiTamTru.getText().trim().isEmpty()
-                || txtQuocTich.getText().trim().isEmpty());
+                || txtNoiTamTru.getText().trim().isEmpty());
     }
 
     /**
@@ -95,7 +92,7 @@ public class NhanKhau_TamVang extends javax.swing.JFrame {
         dateNgaySinh = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("ĐK tạm vắng");
+        setTitle("Đăng ký tạm vắng");
         setLocationByPlatform(true);
         setResizable(false);
 
@@ -294,9 +291,9 @@ public class NhanKhau_TamVang extends javax.swing.JFrame {
                 && txtCmnd.getText().trim().length() != 12) {
             check = false;
             JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
-        } else if (tmController.checkCmnd(txtCmnd.getText().trim())) {
+        } else if (tmController.checkCmndSs(txtCmnd.getText().trim())) {
             check = false;
-            JOptionPane.showMessageDialog(rootPane, "Số CMT/CCCD chưa có trong hệ thống!", "Warning!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Số CMT/CCCD chưa có trong hệ thống hoặc đã đăng ký tạm vắng!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else {
             check = true;
             JOptionPane.showMessageDialog(rootPane, "Kiểm tra thành công!");
@@ -333,9 +330,10 @@ public class NhanKhau_TamVang extends javax.swing.JFrame {
             nhanKhau.setDcHienNay(txtNoiTamTru.getText().trim());
             nhanKhau.setTuNgay(dateTuNgay.getDate());
             nhanKhau.setDenNgay(dateDenNgay.getDate());
-            cnController.capNhat(nhanKhau.getId(), nhanKhau);
+            cnController.capNhatNK(nhanKhau.getId(), nhanKhau);
 
             nhanKhau2.setTinhTrang("cập nhật");
+            nhanKhau2.setTuNgay(dateTuNgay.getDate());
             tmController.themNhanKhau(nhanKhau2);
             String qhChuHo = null;
 

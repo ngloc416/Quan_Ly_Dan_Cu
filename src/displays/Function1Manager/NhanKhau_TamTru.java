@@ -87,7 +87,7 @@ public class NhanKhau_TamTru extends javax.swing.JFrame {
         txtNoiTamTru = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("ĐK tạm trú");
+        setTitle("Đăng ký tạm trú");
         setLocationByPlatform(true);
         setResizable(false);
 
@@ -165,9 +165,6 @@ public class NhanKhau_TamTru extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +184,9 @@ public class NhanKhau_TamTru extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addGap(43, 43, 43))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dateDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,7 +287,7 @@ public class NhanKhau_TamTru extends javax.swing.JFrame {
                 && txtCmnd.getText().trim().length() != 12) {
             check = false;
             JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
-        } else if (!controller.checkCmnd(txtCmnd.getText().trim())) {
+        } else if (!controller.checkCmndSs_Tt(txtCmnd.getText().trim())) {
             check = false;
             JOptionPane.showMessageDialog(rootPane, "Số CMT/CCCD đã tồn tại!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else {
