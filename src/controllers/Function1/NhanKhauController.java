@@ -50,8 +50,7 @@ public class NhanKhauController {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 1) {
                     NhanKhauModel temp = listNK.get(table.getSelectedRow());
-                    //NhanKhauBean info = nhanKhauService.getNhanKhau(temp.getChungMinhThuModel().getSoCMT());
-                    NhanKhau_Info info = new NhanKhau_Info(/*info.toString(), parentJFrame*/);
+                    NhanKhau_Info info = new NhanKhau_Info();
                     MainFrame.it.setEnabled(false);
                     info.setLocationRelativeTo(null);
                     info.setVisible(true);
@@ -84,7 +83,7 @@ public class NhanKhauController {
                         + "OR (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) "
                         + "OR (tinhtrang LIKE 'chuyển đi' AND ngaychuyendi > curdate()) "
                         + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate()) "
-                        + "ORDER BY mahokhau";
+                        + "ORDER BY mahokhau, hoten";
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     ResultSet rs = preparedStatement.executeQuery();
 
@@ -168,7 +167,7 @@ public class NhanKhauController {
                         + "OR (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) "
                         + "OR (tinhtrang LIKE 'chuyển đi' AND ngaychuyendi > curdate()) "
                         + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate())) "
-                        + "ORDER BY mahokhau";
+                        + "ORDER BY mahokhau, hoten";
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     ResultSet rs = preparedStatement.executeQuery();
 

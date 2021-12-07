@@ -21,6 +21,7 @@ public class NhanKhau extends javax.swing.JPanel {
 
         initComponents();
         NhanKhauController controller = new NhanKhauController(jTable, txtSearch);
+        txtTong.setText("" + jTable.getRowCount());
     }
 
     /**
@@ -43,6 +44,8 @@ public class NhanKhau extends javax.swing.JPanel {
         btnChuyenDi = new javax.swing.JButton();
         btnKhaiTu = new javax.swing.JButton();
         btnThemMoi = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtTong = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 204));
 
@@ -89,7 +92,7 @@ public class NhanKhau extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -159,6 +162,17 @@ public class NhanKhau extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Tổng nhân khẩu:");
+
+        txtTong.setEditable(false);
+        txtTong.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTongActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,6 +198,12 @@ public class NhanKhau extends javax.swing.JPanel {
                         .addComponent(btnKhaiTu, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 36, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTong, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,6 +224,10 @@ public class NhanKhau extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(13, 13, 13)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -250,6 +274,10 @@ public class NhanKhau extends javax.swing.JPanel {
         themMoi.setVisible(true);    
     }//GEN-LAST:event_btnThemMoiActionPerformed
 
+    private void txtTongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTongActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChuyenDi;
@@ -258,10 +286,12 @@ public class NhanKhau extends javax.swing.JPanel {
     private javax.swing.JButton btnTamTru;
     private javax.swing.JButton btnTamVang;
     private javax.swing.JButton btnThemMoi;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtTong;
     // End of variables declaration//GEN-END:variables
 }

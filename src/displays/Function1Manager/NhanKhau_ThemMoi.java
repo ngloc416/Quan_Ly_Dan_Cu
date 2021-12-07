@@ -825,7 +825,7 @@ public class NhanKhau_ThemMoi extends javax.swing.JFrame {
                     dateNgaySinh.getDate(), cbGioiTinh.getSelectedItem().toString().trim(), txtNoiSinh.getText().trim(), txtNguyenQuan.getText().trim(),
                     txtDcHienNay.getText().trim(), txtDanToc.getText().trim(), txtTonGiao.getText().trim(), txtQuocTich.getText().trim(), txtNgheNghiep.getText().trim(),
                     txtNoiLamViec.getText().trim(), txtCmnd.getText().trim(), dateNgayCap.getDate(), txtNoiCap.getText().trim(), dateNgayChuyenDen.getDate(),
-                    txtNoiThuongTru.getText().trim(), "sinh sống", new Date());
+                    txtNoiThuongTru.getText().trim(), new Date(3000, 1, 1), "sinh sống", new Date());
 
             HoKhauModel hoKhau = new HoKhauModel(txtNhapMaHK.getText().trim(), txtCmndChuHo.getText().trim(),
                     txtDc.getText().trim(), new Date(), "sinh sống");
@@ -861,7 +861,7 @@ public class NhanKhau_ThemMoi extends javax.swing.JFrame {
                     dateNgaySinh.getDate(), cbGioiTinh.getSelectedItem().toString().trim(), txtNoiSinh.getText().trim(), txtNguyenQuan.getText().trim(),
                     txtDcHienNay.getText().trim(), txtDanToc.getText().trim(), txtTonGiao.getText().trim(), txtQuocTich.getText().trim(), txtNgheNghiep.getText().trim(),
                     txtNoiLamViec.getText().trim(), txtCmnd.getText().trim(), dateNgayCap.getDate(), txtNoiCap.getText().trim(), dateNgayChuyenDen.getDate(),
-                    txtNoiThuongTru.getText().trim(), "sinh sống", new Date());
+                    txtNoiThuongTru.getText().trim(), new Date(3000, 1, 1), "sinh sống", new Date());
 
             controller.themNhanKhau(nhanKhau);
             controller.themGiaDinh(nhanKhau.getCmnd(), txtMaHoKhau.getText().trim(), txtQhChuHo.getText().trim());

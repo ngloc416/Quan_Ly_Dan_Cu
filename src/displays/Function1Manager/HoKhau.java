@@ -19,6 +19,7 @@ public class HoKhau extends javax.swing.JPanel {
     public HoKhau() {
         initComponents();
         HoKhauController controller = new HoKhauController(tblHoKhau, txtSearch);
+        txtTong.setText("" + tblHoKhau.getRowCount());
     }
 
     /**
@@ -38,6 +39,8 @@ public class HoKhau extends javax.swing.JPanel {
         btnDoiChuHo = new javax.swing.JButton();
         btnTachHoKhau = new javax.swing.JButton();
         btnChuyenDi = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtTong = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(204, 255, 255));
 
@@ -75,7 +78,7 @@ public class HoKhau extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -103,6 +106,17 @@ public class HoKhau extends javax.swing.JPanel {
         btnChuyenDi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnChuyenDi.setText("Chuyển đi");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Tổng hộ khẩu:");
+
+        txtTong.setEditable(false);
+        txtTong.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTongActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,6 +136,12 @@ public class HoKhau extends javax.swing.JPanel {
                                 .addComponent(btnChuyenDi, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTong, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,19 +156,29 @@ public class HoKhau extends javax.swing.JPanel {
                         .addComponent(btnTachHoKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtTongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTongActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChuyenDi;
     private javax.swing.JButton btnDoiChuHo;
     private javax.swing.JButton btnTachHoKhau;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblHoKhau;
     private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtTong;
     // End of variables declaration//GEN-END:variables
 }

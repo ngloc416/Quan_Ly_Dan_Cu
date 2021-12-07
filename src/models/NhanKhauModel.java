@@ -61,7 +61,7 @@ public class NhanKhauModel {
     public NhanKhauModel(String maHoKhau, String hoTen, String biDanh, Date ngaySinh, String gioiTinh,
             String noiSinh, String nguyenQuan, String dcHienNay, String danToc, String tonGiao, String quocTich,
             String ngheNghiep, String noiLamViec, String cmnd, Date ngayCap, String noiCap, Date ngayChuyenDen,
-            String noiTruocChuyenDen, String tinhTrang, Date ngayLap) {
+            String noiTruocChuyenDen, Date ngayChuyenDi, String tinhTrang, Date ngayLap) {
         this.maHoKhau = maHoKhau;
         this.hoTen = hoTen;
         this.biDanh = biDanh;
@@ -80,6 +80,7 @@ public class NhanKhauModel {
         this.noiCap = noiCap;
         this.ngayChuyenDen = ngayChuyenDen;
         this.noiTruocChuyenDen = noiTruocChuyenDen;
+        this.ngayChuyenDi = ngayChuyenDi;
         this.tinhTrang = tinhTrang;
         this.ngayLap = ngayLap;
     }

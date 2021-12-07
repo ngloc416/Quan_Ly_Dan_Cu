@@ -57,21 +57,22 @@ public class ThemMoiController {
             @Override
             public void mouseClicked(MouseEvent e) {
                 HoKhauModel temp = listHK.get(table.getSelectedRow());
-                if (e.getClickCount() > 1) {
-                    HoKhau_Info info = new HoKhau_Info(/*info.toString(), parentJFrame*/);
-                    MainFrame.it.setEnabled(false);
-                    info.setLocationRelativeTo(null);
-                    info.setVisible(true);
-                } else {
+                if (e.getClickCount() == 1) {
                     hoKhauSelected = temp;
                     txtMaHoKhau.setText(hoKhauSelected.getMaHoKhau());
                     txtTenChuHo.setText(hoKhauSelected.getHoTenChuHo());
+                } else {                    
+                    HoKhau_Info info = new HoKhau_Info();
+                    MainFrame.it.setEnabled(false);
+                    info.setLocationRelativeTo(null);
+                    info.setVisible(true);
                 }
             }
 
         });
     }
-
+    
+    //hiển thị các hộ khẩu đã có để chọn trong frame thêm mới
     private void showHoKhau() {
         tableModel.setRowCount(0);
 
@@ -176,9 +177,9 @@ public class ThemMoiController {
         try {
             try ( Connection connection = MysqlConnection.getMysqlConnection()) {
                 String query = "INSERT INTO nhankhau(hoten, bidanh, ngaysinh, gioitinh, noisinh, nguyenquan, dchiennay, dantoc, tongiao, "
-                        + "quoctich, nghenghiep, noilamviec, cmnd, ngaycap, noicap, ngaychuyenden, noitruocchuyenden,  tinhtrang, "
-                        + "tungay, denngay, ngaylap) "
-                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        + "quoctich, nghenghiep, noilamviec, cmnd, ngaycap, noicap, ngaychuyenden, noitruocchuyenden, ngaychuyendi,"
+                        + " tinhtrang, tungay, denngay, ngaylap) "
+                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 try ( PreparedStatement st = connection.prepareStatement(query)) {
                     st.setString(1, nhanKhau.getHoTen());
                     st.setString(2, nhanKhau.getBiDanh());
@@ -208,21 +209,27 @@ public class ThemMoiController {
                         st.setDate(16, null);
                     }
                     st.setString(17, nhanKhau.getNoiTruocChuyenDen());
-                    st.setString(18, nhanKhau.getTinhTrang());
+                    if (nhanKhau.getNgayChuyenDi()!= null) {
+                        Date ngayChuyenDi = new Date(nhanKhau.getNgayChuyenDi().getTime());
+                        st.setDate(18, ngayChuyenDi);
+                    } else {
+                        st.setDate(18, null);
+                    }
+                    st.setString(19, nhanKhau.getTinhTrang());
                     if (nhanKhau.getTuNgay() != null) {
                         Date tuNgay = new Date(nhanKhau.getTuNgay().getTime());
-                        st.setDate(19, tuNgay);
-                    } else {
-                        st.setDate(19, null);
-                    }
-                    if (nhanKhau.getDenNgay() != null) {
-                        Date denNgay = new Date(nhanKhau.getDenNgay().getTime());
-                        st.setDate(20, denNgay);
+                        st.setDate(20, tuNgay);
                     } else {
                         st.setDate(20, null);
                     }
+                    if (nhanKhau.getDenNgay() != null) {
+                        Date denNgay = new Date(nhanKhau.getDenNgay().getTime());
+                        st.setDate(21, denNgay);
+                    } else {
+                        st.setDate(21, null);
+                    }
                     Date ngayLap = new Date(nhanKhau.getNgayLap().getTime());
-                    st.setDate(21, ngayLap);
+                    st.setDate(22, ngayLap);
 
                     st.execute();
                 }

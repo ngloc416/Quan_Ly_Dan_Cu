@@ -4,22 +4,26 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_Info.java</file>
-            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_TamTru.java</file>
             <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_ThemMoi.java</file>
-            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/models/ThayDoiNkModel.java</file>
-            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_TamVang.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_TamTru.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/controllers/Task.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/MainFrame.java</file>
             <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/models/NhanKhauModel.java</file>
             <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/controllers/Function1/NhanKhauController.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function5.java</file>
             <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/controllers/Function1/CapNhatController.java</file>
-            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/models/GiaDinhModel.java</file>
-            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_KhaiTu.java</file>
-            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_ChuyenDi.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/controllers/LoginController.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Home.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/controllers/TaskController.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau.java</file>
             <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/controllers/Function1/ThemMoiController.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_ChuyenDi.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/controllers/ThongKeController.java</file>
             <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/controllers/Function1/HoKhauController.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/ThongKe.java</file>
             <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_CapNhat.java</file>
+            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/HoKhau.java</file>
             <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/controllers/Function1/KhaiTuController.java</file>
-            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/models/HoKhauModel.java</file>
-            <file>file:/C:/Users/Loc%20Nguyen/OneDrive/Documents/Github/Quan_Ly_Dan_Cu/src/displays/Function1Manager/NhanKhau_QuayVe.java</file>
         </group>
     </open-files>
 </project-private>

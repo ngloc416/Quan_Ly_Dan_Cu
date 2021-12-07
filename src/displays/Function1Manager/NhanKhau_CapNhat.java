@@ -231,15 +231,7 @@ public class NhanKhau_CapNhat extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNoiLamViecActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        if (txtCmnd.getText().trim().length() != 8
-            && txtCmnd.getText().trim().length() != 9
-            && txtCmnd.getText().trim().length() != 12) {
-            JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
-        } else if (!controller.checkCmndSs_Tt(txtCmnd.getText().trim())) {
-            JOptionPane.showMessageDialog(rootPane, "Số CMT/CCCD đã tồn tại!", "Warning!", JOptionPane.WARNING_MESSAGE);
-        } else {
-            
-        }
+        
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     /**

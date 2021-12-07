@@ -46,7 +46,8 @@ public class KhaiTuController {
         }
         return true;
     }
-
+    
+    //tìm người mất, người khai
     public List<NhanKhauModel> findByCondition(String key) {
 
         List<NhanKhauModel> list = new ArrayList<>();
@@ -99,28 +100,5 @@ public class KhaiTuController {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
         }
         return list;
-    }
-
-    /*public boolean checkQuanHe(int id1, int id2){
-        try {
-            try ( Connection connection = MysqlConnection.getMysqlConnection()) {
-                String query = "SELECT a.idnhankhau as id1, b.idnhankhau as id2 FROM giadinh as a INNER JOIN giadinh as b "
-                        + "on a.idhokhau = b.idhokhau where a.idnhankhau <> b.idnhankhau";
-                try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                    ResultSet rs = preparedStatement.executeQuery();
-
-                    while (rs.next()) {
-                        if (id1 == rs.getInt("id1") && id2 == rs.getInt("id2")) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
-        }
-        return false;
-    }*/
-    
-     
+    }   
 }
