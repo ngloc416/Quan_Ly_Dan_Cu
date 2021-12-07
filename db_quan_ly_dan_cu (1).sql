@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 04, 2021 lúc 02:44 PM
+-- Thời gian đã tạo: Th12 07, 2021 lúc 01:28 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.12
 
@@ -41,7 +41,15 @@ CREATE TABLE `giadinh` (
 --
 
 INSERT INTO `giadinh` (`id`, `idhokhau`, `idnhankhau`, `quanhechuho`) VALUES
-(24, 12, 41, 'chủ hộ');
+(57, 22, 74, 'chủ hộ'),
+(58, 22, 75, 'vợ'),
+(59, 22, 76, 'con trai'),
+(60, 23, 77, 'chủ hộ'),
+(61, 23, 78, 'vợ'),
+(62, 23, 79, 'con gái'),
+(63, 22, 82, 'con trai'),
+(64, 23, 83, 'con gái'),
+(65, 23, 84, 'con trai');
 
 -- --------------------------------------------------------
 
@@ -64,7 +72,8 @@ CREATE TABLE `hokhau` (
 --
 
 INSERT INTO `hokhau` (`id`, `mahokhau`, `cmndchuho`, `diachi`, `ngaylap`, `ngaychuyendi`, `tinhtrang`) VALUES
-(12, 'HK1', '012345678912', 'HD', '2021-12-04', NULL, 'sinh sống');
+(22, 'HK1', '789456123011', 'HN', '2021-12-06', NULL, 'sinh sống'),
+(23, 'HK23', '789456123006', 'HN', '2021-12-06', NULL, 'sinh sống');
 
 -- --------------------------------------------------------
 
@@ -104,7 +113,18 @@ CREATE TABLE `nhankhau` (
 --
 
 INSERT INTO `nhankhau` (`id`, `hoten`, `bidanh`, `ngaysinh`, `gioitinh`, `noisinh`, `nguyenquan`, `dchiennay`, `dantoc`, `tongiao`, `quoctich`, `nghenghiep`, `noilamviec`, `cmnd`, `ngaycap`, `noicap`, `ngaychuyenden`, `noitruocchuyenden`, `ngaychuyendi`, `noiden`, `tinhtrang`, `tungay`, `denngay`, `ngaylap`) VALUES
-(41, 'Nguyễn Đình Lộc', '', '2021-12-04', 'Nam', 'HD', 'HD', 'HD', 'Kinh', 'không', 'VN', 'SV', 'BK', '012345678912', '2021-12-04', 'HD', '2021-12-04', 'HD', NULL, NULL, 'sinh sống', NULL, NULL, '2021-12-04');
+(74, 'Nguyễn Văn A', '', '1969-12-08', 'Nam', 'HN', 'HN', 'HN', 'Kinh', 'không', 'VN', 'Doanh Nhân', 'HN', '789456123011', '2017-12-27', 'HN', '1969-12-08', 'HN', '3000-01-01', NULL, 'sinh sống', NULL, NULL, '2021-12-06'),
+(75, 'Trần Thị B', '', '1971-07-06', 'Nữ', 'HN', 'HN', 'HN', 'Kinh', 'không', 'VN', 'Nội trợ', 'HN', '789456123002', '2017-12-06', 'HN', '1988-06-18', 'HN', '2021-12-06', 'đã qua đời', 'khai tử', NULL, NULL, '2021-12-06'),
+(76, 'Nguyễn Văn C', '', '1990-03-06', 'Nam', 'HN', 'HN', 'HCM', 'Kinh', 'không', 'VN', 'Kỹ sư', 'HN', '789456123003', '2017-05-06', 'HN', '1990-03-06', 'HN', '3000-01-01', NULL, 'tạm vắng', '2021-07-01', '2021-08-12', '2021-12-06'),
+(77, 'Bùi Văn D', '', '1971-10-06', 'Nam', 'HP', 'HP', 'HN', 'Kinh', 'không', 'VN', 'Công nhân', 'HN', '789456123006', '2018-12-06', 'HP', '2007-07-06', 'HP', '3000-01-01', NULL, 'sinh sống', NULL, NULL, '2021-12-06'),
+(78, 'Hoàng Thị E', '', '1975-01-06', 'Nữ', 'HP', 'HP', 'HN', 'Kinh', 'không', 'VN', 'Công nhân', 'HN', '789456123456', '2018-12-06', 'HP', '2007-12-06', 'HP', '3000-01-01', NULL, 'sinh sống', NULL, NULL, '2021-12-06'),
+(79, 'Bùi Thị F', '', '1996-12-02', 'Nữ', 'HN', 'HP', 'HCM', 'Kinh', 'không', 'VN', 'Kế toán', 'HN', '789456123008', '2018-12-06', 'HN', '1996-12-02', 'HN', '3000-01-01', NULL, 'tạm vắng', '2021-12-01', '2021-12-16', '2021-12-06'),
+(80, 'Cao Văn G', NULL, '1994-05-07', 'Nam', NULL, NULL, 'HN', NULL, NULL, 'VN', NULL, NULL, '789456132789', NULL, NULL, NULL, 'TB', '3000-01-01', NULL, 'tạm trú', '2021-08-11', '2021-09-15', '2021-12-06'),
+(81, 'Nguyễn Thị H', NULL, '1992-08-06', 'Nữ', NULL, NULL, 'HN', NULL, NULL, 'VN', NULL, NULL, '789456123369', NULL, NULL, NULL, 'HD', '3000-01-01', NULL, 'tạm trú', '2021-12-01', '2021-12-17', '2021-12-06'),
+(82, 'Nguyễn Văn C', '', '1990-03-06', 'Nam', 'HN', 'HN', 'HN', 'Kinh', 'không', 'VN', 'Kỹ sư', 'HN', '789456123003', '2017-05-06', 'HN', '1990-03-06', 'HN', '2021-11-04', 'HCM', 'chuyển đi', '2021-07-01', NULL, '2021-12-06'),
+(83, 'Bùi Thị F', '', '1996-12-02', 'Nữ', 'HN', 'HP', 'HN', 'Kinh', 'không', 'VN', 'Kế toán', 'HN', '789456123008', '2018-12-06', 'HN', '1996-12-02', 'HN', '3000-01-01', NULL, 'cập nhật', '2021-12-01', NULL, '2021-12-06'),
+(84, 'Bùi Văn O', '', '1998-12-07', 'Nam', 'HN', 'HN', 'Hn', 'Kinh', 'không', 'VN', 'Kinh doanh', 'HN', '789456123789', '2018-12-07', 'HN', '1998-12-07', 'HN', '4900-02-01', NULL, 'sinh sống', NULL, NULL, '2021-12-07'),
+(85, 'Trịnh Văn K', NULL, '2000-12-07', 'Nam', NULL, NULL, 'HN', NULL, NULL, 'VN', NULL, NULL, '123456789799', NULL, NULL, NULL, 'ĐN', NULL, NULL, 'tạm trú', '2021-12-02', '2021-12-24', '2021-12-07');
 
 -- --------------------------------------------------------
 
@@ -118,8 +138,7 @@ CREATE TABLE `thaydoihokhau` (
   `ttintdoi` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ndtdoi` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ghichu` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ngaytdoi` date DEFAULT NULL,
-  `nguoitdoi` int(10) DEFAULT NULL
+  `ngaytdoi` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -135,8 +154,7 @@ CREATE TABLE `thaydoinhankhau` (
   `tungay` date DEFAULT NULL,
   `denngay` date DEFAULT NULL,
   `ghichu` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ngaytdoi` date DEFAULT NULL,
-  `nguoitdoi` int(10) DEFAULT NULL
+  `ngaytdoi` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -191,16 +209,14 @@ ALTER TABLE `nhankhau`
 --
 ALTER TABLE `thaydoihokhau`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `mahokhau` (`mahokhau`),
-  ADD KEY `nguoitdoi` (`nguoitdoi`);
+  ADD KEY `mahokhau` (`mahokhau`);
 
 --
 -- Chỉ mục cho bảng `thaydoinhankhau`
 --
 ALTER TABLE `thaydoinhankhau`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `cmnd` (`cmnd`),
-  ADD KEY `nguoitdoi` (`nguoitdoi`);
+  ADD KEY `cmnd` (`cmnd`);
 
 --
 -- Chỉ mục cho bảng `users`
@@ -216,19 +232,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `giadinh`
 --
 ALTER TABLE `giadinh`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT cho bảng `hokhau`
 --
 ALTER TABLE `hokhau`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT cho bảng `nhankhau`
 --
 ALTER TABLE `nhankhau`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT cho bảng `thaydoihokhau`
@@ -269,15 +285,13 @@ ALTER TABLE `hokhau`
 -- Các ràng buộc cho bảng `thaydoihokhau`
 --
 ALTER TABLE `thaydoihokhau`
-  ADD CONSTRAINT `thaydoihokhau_ibfk_1` FOREIGN KEY (`mahokhau`) REFERENCES `hokhau` (`mahokhau`),
-  ADD CONSTRAINT `thaydoihokhau_ibfk_2` FOREIGN KEY (`nguoitdoi`) REFERENCES `users` (`ID`);
+  ADD CONSTRAINT `thaydoihokhau_ibfk_1` FOREIGN KEY (`mahokhau`) REFERENCES `hokhau` (`mahokhau`);
 
 --
 -- Các ràng buộc cho bảng `thaydoinhankhau`
 --
 ALTER TABLE `thaydoinhankhau`
-  ADD CONSTRAINT `thaydoinhankhau_ibfk_1` FOREIGN KEY (`cmnd`) REFERENCES `nhankhau` (`cmnd`),
-  ADD CONSTRAINT `thaydoinhankhau_ibfk_2` FOREIGN KEY (`nguoitdoi`) REFERENCES `users` (`ID`);
+  ADD CONSTRAINT `thaydoinhankhau_ibfk_1` FOREIGN KEY (`cmnd`) REFERENCES `nhankhau` (`cmnd`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
