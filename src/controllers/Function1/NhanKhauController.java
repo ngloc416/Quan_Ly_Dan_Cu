@@ -37,9 +37,31 @@ public class NhanKhauController {
     public NhanKhauController() {
     }
 
-    public NhanKhauController(JTable table, JTextField txtSearch) {
+    public NhanKhauController(JTable table) {
         this.tableModel = (DefaultTableModel) table.getModel();
+        listNK = findAll();
+        showNhanKhau();
+        initAction();
+
+        //xu ly su kien khi nhay dup vao 1 hang trong bang
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() > 1) {
+                    NhanKhauModel temp = listNK.get(table.getSelectedRow());
+                    NhanKhau_Info info = new NhanKhau_Info();
+                    MainFrame.it.setEnabled(false);
+                    info.setLocationRelativeTo(null);
+                    info.setVisible(true);
+                }
+            }
+
+        });
+    }
+    
+    public NhanKhauController(JTable table, JTextField txtSearch) {
         this.txtSearch = txtSearch;
+        this.tableModel = (DefaultTableModel) table.getModel();
         listNK = findAll();
         showNhanKhau();
         initAction();

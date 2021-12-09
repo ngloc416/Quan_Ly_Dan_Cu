@@ -10,8 +10,7 @@ import displays.Function1Manager.NhanKhau;
 import displays.Function1Manager.ThongKe;
 import displays.Function23467;
 import displays.Function5;
-import displays.Function5Manager.LapDanhSach;
-import displays.Function5Manager.LichSu;
+import displays.Function5Manager.TangQua;
 import displays.Function5Manager.QuanLyQua;
 import displays.Function5Manager.QuanLyQuy;
 import java.awt.BorderLayout;
@@ -62,10 +61,8 @@ public class TaskController {
                 display = new QuanLyQuy();
             case "QuanLyQua" ->
                 display = new QuanLyQua();
-            case "LapDanhSach" ->
-                display = new LapDanhSach();
-            case "LichSu" ->
-                display = new LichSu();
+            case "TangQua" ->
+                display = new TangQua();
             default -> {
                 display = new Function23467();
             }

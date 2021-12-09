@@ -97,6 +97,11 @@ public class HoKhau extends javax.swing.JPanel {
         btnDoiChuHo.setBackground(new java.awt.Color(236, 236, 236));
         btnDoiChuHo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnDoiChuHo.setText("Đổi chủ hộ");
+        btnDoiChuHo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoiChuHoActionPerformed(evt);
+            }
+        });
 
         btnTachHoKhau.setBackground(new java.awt.Color(236, 236, 236));
         btnTachHoKhau.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -167,6 +172,10 @@ public class HoKhau extends javax.swing.JPanel {
     private void txtTongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTongActionPerformed
+
+    private void btnDoiChuHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiChuHoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDoiChuHoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

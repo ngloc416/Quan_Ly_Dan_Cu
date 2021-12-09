@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 07, 2021 lúc 01:28 PM
--- Phiên bản máy phục vụ: 10.4.21-MariaDB
--- Phiên bản PHP: 8.0.12
+-- Host: 127.0.0.1
+-- Generation Time: Dec 09, 2021 at 07:11 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,15 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `quan_ly_dan_cu`
+-- Database: `quan_ly_dan_cu`
 --
-CREATE DATABASE IF NOT EXISTS `quan_ly_dan_cu` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `quan_ly_dan_cu`;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `giadinh`
+-- Table structure for table `giadinh`
 --
 
 CREATE TABLE `giadinh` (
@@ -37,7 +35,7 @@ CREATE TABLE `giadinh` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `giadinh`
+-- Dumping data for table `giadinh`
 --
 
 INSERT INTO `giadinh` (`id`, `idhokhau`, `idnhankhau`, `quanhechuho`) VALUES
@@ -54,7 +52,7 @@ INSERT INTO `giadinh` (`id`, `idhokhau`, `idnhankhau`, `quanhechuho`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `hokhau`
+-- Table structure for table `hokhau`
 --
 
 CREATE TABLE `hokhau` (
@@ -68,7 +66,7 @@ CREATE TABLE `hokhau` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `hokhau`
+-- Dumping data for table `hokhau`
 --
 
 INSERT INTO `hokhau` (`id`, `mahokhau`, `cmndchuho`, `diachi`, `ngaylap`, `ngaychuyendi`, `tinhtrang`) VALUES
@@ -78,7 +76,7 @@ INSERT INTO `hokhau` (`id`, `mahokhau`, `cmndchuho`, `diachi`, `ngaylap`, `ngayc
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `nhankhau`
+-- Table structure for table `nhankhau`
 --
 
 CREATE TABLE `nhankhau` (
@@ -109,7 +107,7 @@ CREATE TABLE `nhankhau` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `nhankhau`
+-- Dumping data for table `nhankhau`
 --
 
 INSERT INTO `nhankhau` (`id`, `hoten`, `bidanh`, `ngaysinh`, `gioitinh`, `noisinh`, `nguyenquan`, `dchiennay`, `dantoc`, `tongiao`, `quoctich`, `nghenghiep`, `noilamviec`, `cmnd`, `ngaycap`, `noicap`, `ngaychuyenden`, `noitruocchuyenden`, `ngaychuyendi`, `noiden`, `tinhtrang`, `tungay`, `denngay`, `ngaylap`) VALUES
@@ -129,7 +127,94 @@ INSERT INTO `nhankhau` (`id`, `hoten`, `bidanh`, `ngaysinh`, `gioitinh`, `noisin
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `thaydoihokhau`
+-- Table structure for table `phanqua`
+--
+
+CREATE TABLE `phanqua` (
+  `dip` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thanhtien` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `phanqua`
+--
+
+INSERT INTO `phanqua` (`dip`, `thanhtien`) VALUES
+('Tet Nguyen Dan', 30000),
+('Thuong hoc sinh gioi', 50000),
+('Trung Thu', 20000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phanqua_nhankhau`
+--
+
+CREATE TABLE `phanqua_nhankhau` (
+  `id` int(11) NOT NULL,
+  `thoigian` datetime NOT NULL DEFAULT current_timestamp(),
+  `dip` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nhankhau_id` int(10) NOT NULL,
+  `soluong` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `phanqua_nhankhau`
+--
+
+INSERT INTO `phanqua_nhankhau` (`id`, `thoigian`, `dip`, `nhankhau_id`, `soluong`) VALUES
+(1, '2021-12-08 20:00:44', 'Trung Thu', 79, 1),
+(11, '2021-12-09 00:32:38', 'Thuong hoc sinh gioi', 74, 1),
+(12, '2021-12-09 00:38:45', 'Trung Thu', 75, 1),
+(13, '2021-12-09 12:40:42', 'Thuong hoc sinh gioi', 84, 2),
+(14, '2021-12-09 12:48:07', 'Tet Nguyen Dan', 76, 2),
+(15, '2021-12-09 12:49:46', 'Thuong hoc sinh gioi', 79, 2),
+(16, '2021-12-09 12:50:12', 'Thuong hoc sinh gioi', 74, 1),
+(17, '2021-12-09 13:00:25', 'Thuong hoc sinh gioi', 85, 1),
+(18, '2021-12-09 13:03:46', 'Tet Nguyen Dan', 75, 1),
+(19, '2021-12-09 13:04:42', 'Thuong hoc sinh gioi', 74, 2),
+(20, '2021-12-09 13:10:35', 'Tet Nguyen Dan', 75, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quyphanthuong`
+--
+
+CREATE TABLE `quyphanthuong` (
+  `id` int(11) NOT NULL,
+  `thoigian` datetime NOT NULL DEFAULT current_timestamp(),
+  `sodu` int(11) NOT NULL,
+  `mota` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `quyphanthuong`
+--
+
+INSERT INTO `quyphanthuong` (`id`, `thoigian`, `sodu`, `mota`) VALUES
+(1, '2021-12-08 19:50:52', 1000000, 'them 1000000 vnd vao quy phan thuong'),
+(2, '2021-12-08 21:14:37', 1200000, 'them 200000 vao quy'),
+(4, '2021-12-08 21:22:17', 1250000, 'them 50000 vao quy'),
+(5, '2021-12-08 22:30:25', 1500000, 'them 250000'),
+(6, '2021-12-08 22:41:14', 1515000, 'them 15000 vao quy'),
+(16, '2021-12-09 00:32:38', 1465000, 'tieu 50000, tang thuong cho Nguyễn Văn A, so cmnd: 789456123011'),
+(17, '2021-12-09 00:38:45', 1445000, 'tieu 20000, tang thuong cho Trần Thị B, so cmnd: 789456123002'),
+(18, '2021-12-09 00:42:06', 3445000, 'them 2000000'),
+(19, '2021-12-09 12:40:42', 3345000, 'tieu 100000, tang thuong cho Bùi Văn O, so cmnd: 789456123789'),
+(20, '2021-12-09 12:48:07', 3285000, 'tieu 60000, tang thuong cho Nguyễn Văn C, so cmnd: 789456123003'),
+(21, '2021-12-09 12:49:27', 3645000, 'them 360000 vao quy'),
+(22, '2021-12-09 12:49:46', 3545000, 'tieu 100000, tang thuong cho Bùi Thị F, so cmnd: 789456123008'),
+(23, '2021-12-09 12:50:12', 3495000, 'tieu 50000, tang thuong cho Bùi Thị F, so cmnd: 789456123011'),
+(24, '2021-12-09 13:00:25', 3445000, 'tieu 50000, tang thuong cho Trịnh Văn K, so cmnd: 123456789799'),
+(25, '2021-12-09 13:03:46', 3415000, 'tieu 30000, tang thuong cho Trần Thị B, so cmnd: 789456123002'),
+(26, '2021-12-09 13:04:42', 3315000, 'tieu 100000, tang thuong cho Nguyễn Văn A, so cmnd: 789456123011'),
+(27, '2021-12-09 13:10:35', 3255000, 'tieu 60000, tang thuong cho Trần Thị B, so cmnd: 789456123002');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `thaydoihokhau`
 --
 
 CREATE TABLE `thaydoihokhau` (
@@ -144,7 +229,7 @@ CREATE TABLE `thaydoihokhau` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `thaydoinhankhau`
+-- Table structure for table `thaydoinhankhau`
 --
 
 CREATE TABLE `thaydoinhankhau` (
@@ -160,7 +245,7 @@ CREATE TABLE `thaydoinhankhau` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -170,7 +255,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `pass`) VALUES
@@ -178,11 +263,11 @@ INSERT INTO `users` (`id`, `username`, `pass`) VALUES
 (2, 'admin2', 'admin');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `giadinh`
+-- Indexes for table `giadinh`
 --
 ALTER TABLE `giadinh`
   ADD PRIMARY KEY (`id`),
@@ -190,7 +275,7 @@ ALTER TABLE `giadinh`
   ADD KEY `idnhankhau` (`idnhankhau`);
 
 --
--- Chỉ mục cho bảng `hokhau`
+-- Indexes for table `hokhau`
 --
 ALTER TABLE `hokhau`
   ADD PRIMARY KEY (`id`),
@@ -198,97 +283,136 @@ ALTER TABLE `hokhau`
   ADD KEY `mahokhau` (`mahokhau`);
 
 --
--- Chỉ mục cho bảng `nhankhau`
+-- Indexes for table `nhankhau`
 --
 ALTER TABLE `nhankhau`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cmnd` (`cmnd`);
 
 --
--- Chỉ mục cho bảng `thaydoihokhau`
+-- Indexes for table `phanqua`
+--
+ALTER TABLE `phanqua`
+  ADD PRIMARY KEY (`dip`);
+
+--
+-- Indexes for table `phanqua_nhankhau`
+--
+ALTER TABLE `phanqua_nhankhau`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nhankhau_id` (`nhankhau_id`),
+  ADD KEY `dip` (`dip`);
+
+--
+-- Indexes for table `quyphanthuong`
+--
+ALTER TABLE `quyphanthuong`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `thaydoihokhau`
 --
 ALTER TABLE `thaydoihokhau`
   ADD PRIMARY KEY (`id`),
   ADD KEY `mahokhau` (`mahokhau`);
 
 --
--- Chỉ mục cho bảng `thaydoinhankhau`
+-- Indexes for table `thaydoinhankhau`
 --
 ALTER TABLE `thaydoinhankhau`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cmnd` (`cmnd`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `giadinh`
+-- AUTO_INCREMENT for table `giadinh`
 --
 ALTER TABLE `giadinh`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
--- AUTO_INCREMENT cho bảng `hokhau`
+-- AUTO_INCREMENT for table `hokhau`
 --
 ALTER TABLE `hokhau`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT cho bảng `nhankhau`
+-- AUTO_INCREMENT for table `nhankhau`
 --
 ALTER TABLE `nhankhau`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
--- AUTO_INCREMENT cho bảng `thaydoihokhau`
+-- AUTO_INCREMENT for table `phanqua_nhankhau`
+--
+ALTER TABLE `phanqua_nhankhau`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `quyphanthuong`
+--
+ALTER TABLE `quyphanthuong`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `thaydoihokhau`
 --
 ALTER TABLE `thaydoihokhau`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `thaydoinhankhau`
+-- AUTO_INCREMENT for table `thaydoinhankhau`
 --
 ALTER TABLE `thaydoinhankhau`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `giadinh`
+-- Constraints for table `giadinh`
 --
 ALTER TABLE `giadinh`
   ADD CONSTRAINT `giadinh_ibfk_1` FOREIGN KEY (`idhokhau`) REFERENCES `hokhau` (`id`),
   ADD CONSTRAINT `giadinh_ibfk_2` FOREIGN KEY (`idnhankhau`) REFERENCES `nhankhau` (`id`);
 
 --
--- Các ràng buộc cho bảng `hokhau`
+-- Constraints for table `hokhau`
 --
 ALTER TABLE `hokhau`
   ADD CONSTRAINT `hokhau_ibfk_1` FOREIGN KEY (`cmndchuho`) REFERENCES `nhankhau` (`cmnd`);
 
 --
--- Các ràng buộc cho bảng `thaydoihokhau`
+-- Constraints for table `phanqua_nhankhau`
+--
+ALTER TABLE `phanqua_nhankhau`
+  ADD CONSTRAINT `phanqua_nhankhau_ibfk_1` FOREIGN KEY (`nhankhau_id`) REFERENCES `nhankhau` (`id`),
+  ADD CONSTRAINT `phanqua_nhankhau_ibfk_2` FOREIGN KEY (`dip`) REFERENCES `phanqua` (`dip`);
+
+--
+-- Constraints for table `thaydoihokhau`
 --
 ALTER TABLE `thaydoihokhau`
   ADD CONSTRAINT `thaydoihokhau_ibfk_1` FOREIGN KEY (`mahokhau`) REFERENCES `hokhau` (`mahokhau`);
 
 --
--- Các ràng buộc cho bảng `thaydoinhankhau`
+-- Constraints for table `thaydoinhankhau`
 --
 ALTER TABLE `thaydoinhankhau`
   ADD CONSTRAINT `thaydoinhankhau_ibfk_1` FOREIGN KEY (`cmnd`) REFERENCES `nhankhau` (`cmnd`);
