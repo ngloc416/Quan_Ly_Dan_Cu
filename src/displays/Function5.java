@@ -24,8 +24,7 @@ public class Function5 extends javax.swing.JPanel {
         List<Task> tasks = new ArrayList<>();
         tasks.add(new Task("QuanLyQuy", jpnQuanLyQuy));
         tasks.add(new Task("QuanLyQua", jpnQuanLyQua));
-        tasks.add(new Task("LapDanhSach", jpnLapDanhSach));
-        tasks.add(new Task("LichSu", jpnLichSu));
+        tasks.add(new Task("TangQua", jpnLapDanhSach));
         
         TaskController controller = new TaskController(jpnWorkplace5, tasks);
         controller.setDisplay("QuanLyQuy", jpnQuanLyQuy);
@@ -47,9 +46,7 @@ public class Function5 extends javax.swing.JPanel {
         jpnQuanLyQua = new javax.swing.JPanel();
         jlbQuanLyQua = new javax.swing.JLabel();
         jpnLapDanhSach = new javax.swing.JPanel();
-        jlbLapDanhSach = new javax.swing.JLabel();
-        jpnLichSu = new javax.swing.JPanel();
-        jlbLichSu = new javax.swing.JLabel();
+        jlbTangQua = new javax.swing.JLabel();
         jpnWorkplace5 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -78,7 +75,7 @@ public class Function5 extends javax.swing.JPanel {
 
         jlbQuanLyQua.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlbQuanLyQua.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbQuanLyQua.setText("Quản lý quà");
+        jlbQuanLyQua.setText("Quản lý loại quà");
 
         javax.swing.GroupLayout jpnQuanLyQuaLayout = new javax.swing.GroupLayout(jpnQuanLyQua);
         jpnQuanLyQua.setLayout(jpnQuanLyQuaLayout);
@@ -93,36 +90,19 @@ public class Function5 extends javax.swing.JPanel {
 
         jpnLapDanhSach.setBackground(new java.awt.Color(236, 236, 236));
 
-        jlbLapDanhSach.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jlbLapDanhSach.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbLapDanhSach.setText("Lập danh sách");
+        jlbTangQua.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlbTangQua.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTangQua.setText("Trao quà");
 
         javax.swing.GroupLayout jpnLapDanhSachLayout = new javax.swing.GroupLayout(jpnLapDanhSach);
         jpnLapDanhSach.setLayout(jpnLapDanhSachLayout);
         jpnLapDanhSachLayout.setHorizontalGroup(
             jpnLapDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbLapDanhSach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlbTangQua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jpnLapDanhSachLayout.setVerticalGroup(
             jpnLapDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbLapDanhSach, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-        );
-
-        jpnLichSu.setBackground(new java.awt.Color(236, 236, 236));
-
-        jlbLichSu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jlbLichSu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbLichSu.setText("Lịch sử");
-
-        javax.swing.GroupLayout jpnLichSuLayout = new javax.swing.GroupLayout(jpnLichSu);
-        jpnLichSu.setLayout(jpnLichSuLayout);
-        jpnLichSuLayout.setHorizontalGroup(
-            jpnLichSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbLichSu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jpnLichSuLayout.setVerticalGroup(
-            jpnLichSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbLichSu, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(jlbTangQua, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -132,7 +112,6 @@ public class Function5 extends javax.swing.JPanel {
             .addComponent(jpnQuanLyQuy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jpnQuanLyQua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jpnLapDanhSach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jpnLichSu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,9 +121,7 @@ public class Function5 extends javax.swing.JPanel {
                 .addComponent(jpnQuanLyQua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpnLapDanhSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpnLichSu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 309, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jpnWorkplace5.setBackground(new java.awt.Color(255, 255, 255));
@@ -157,7 +134,7 @@ public class Function5 extends javax.swing.JPanel {
         );
         jpnWorkplace5Layout.setVerticalGroup(
             jpnWorkplace5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 496, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -179,12 +156,10 @@ public class Function5 extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel jlbLapDanhSach;
-    private javax.swing.JLabel jlbLichSu;
     private javax.swing.JLabel jlbQuanLyQua;
     private javax.swing.JLabel jlbQuanLyQuy;
+    private javax.swing.JLabel jlbTangQua;
     private javax.swing.JPanel jpnLapDanhSach;
-    private javax.swing.JPanel jpnLichSu;
     private javax.swing.JPanel jpnQuanLyQua;
     private javax.swing.JPanel jpnQuanLyQuy;
     private javax.swing.JPanel jpnWorkplace5;

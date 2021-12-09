@@ -5,6 +5,18 @@
  */
 package displays.Function5Manager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import models.QuyPhanThuongModel;
+import utilities.MysqlConnection;
+
 /**
  *
  * @author Loc Nguyen
@@ -14,8 +26,83 @@ public class QuanLyQuy extends javax.swing.JPanel {
     /**
      * Creates new form QuanLyQuy
      */
+    private int soDuMoi = 0;
+
     public QuanLyQuy() {
         initComponents();
+
+        int soDu = getSoDu();
+        this.soDuMoi = soDu;
+        jTextField1.setText(String.valueOf(soDu));
+
+        hienThiLichSuBienDong();
+    }
+
+    public int getSoDu() {
+        int soDu = -1;
+        try (Connection connection = MysqlConnection.getMysqlConnection()) {
+            String query = "SELECT sodu FROM quyphanthuong WHERE thoigian IN (SELECT MAX(thoigian) from quyphanthuong)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    soDu = rs.getInt("sodu");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyQua.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuanLyQuy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return soDu;
+    }
+
+    List<QuyPhanThuongModel> getListQuyPhanThuong() {
+        List<QuyPhanThuongModel> res = new ArrayList<>();
+        try (Connection connection = MysqlConnection.getMysqlConnection()) {
+            String query = "SELECT sodu, DATE_FORMAT(thoigian, '%Y-%m-%d %T') AS thoigian, mota FROM quyphanthuong ORDER BY thoigian DESC";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    int soDu = rs.getInt("sodu");
+                    String thoiGian = rs.getString("thoigian");
+                    String moTa = rs.getString("mota");
+                    QuyPhanThuongModel qpt = new QuyPhanThuongModel();
+                    qpt.setMoTa(moTa);
+                    qpt.setThoiGian(thoiGian);
+                    qpt.setSoDu(soDu);
+                    res.add(qpt);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyQua.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuanLyQuy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+
+    private void hienThiLichSuBienDong() {
+        DefaultTableModel tableModel = (DefaultTableModel) jTable2.getModel();
+        tableModel.setRowCount(0);
+
+        List<QuyPhanThuongModel> listQuy = getListQuyPhanThuong();
+
+        List<Integer> listBienDong = new ArrayList<Integer>();;
+        for (int i = 0; i < listQuy.size() - 1; i++) {
+            int bienDong = listQuy.get(i).getSoDu() - listQuy.get(i + 1).getSoDu();
+            listBienDong.add(bienDong);
+        }
+        listBienDong.add(listQuy.get(listQuy.size() - 1).getSoDu());
+
+        for (int i = 0; i < listQuy.size(); i++) {
+            String thoiGian = listQuy.get(i).getThoiGian();
+            String moTa = listQuy.get(i).getMoTa();
+            int soDu = listQuy.get(i).getSoDu();
+            int bienDong = listBienDong.get(i);
+            tableModel.addRow(new Object[]{thoiGian, String.valueOf(soDu), String.valueOf(bienDong), moTa});
+        }
     }
 
     /**
@@ -27,21 +114,172 @@ public class QuanLyQuy extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jTextField2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
         setBackground(new java.awt.Color(204, 204, 255));
+
+        jLabel1.setText("Số tiền trong quỹ");
+
+        jTextField1.setEditable(false);
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Số tiền thêm vào quỹ");
+
+        jLabel3.setText("Mô tả");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jButton1.setText("Xung quỹ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Thời gian", "Số dư", "Biến động", "Mô tả"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        jLabel4.setText("Lịch sử biến động quỹ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 838, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jTextField2)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 493, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(270, 270, 270))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            int soTien = Integer.parseInt(jTextField2.getText());
+            String moTa = jTextArea1.getText();
+            int soDuCu = getSoDu();
+            int soDuMoi = soDuCu + soTien;
+
+            try (Connection connection = MysqlConnection.getMysqlConnection()) {
+                String query = "INSERT INTO quyphanthuong (sodu, mota) VALUES (?, ?)";
+                PreparedStatement preparedStatement = connection.prepareCall(query);
+                preparedStatement.setString(1, String.valueOf(soDuMoi));
+                preparedStatement.setString(2, moTa);
+                preparedStatement.execute();
+
+                jTextField1.setText(String.valueOf(soDuMoi));
+                jTextField2.setText("");
+                jTextArea1.setText("");
+                hienThiLichSuBienDong();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyQuy.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyQuy.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

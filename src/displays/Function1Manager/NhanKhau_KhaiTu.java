@@ -424,7 +424,7 @@ public class NhanKhau_KhaiTu extends javax.swing.JFrame {
                     cnController.capNhatNK(nk.getId(), nk);
                 }
             }
-            ngMat.setTinhTrang("khai tử");
+            ngMat.setTinhTrang("đã mất");
             ngMat.setNgayChuyenDi(dateNgayMat.getDate());
             ngMat.setNoiDen("đã qua đời");
             cnController.capNhatNK(ngMat.getId(), ngMat);

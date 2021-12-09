@@ -54,7 +54,6 @@
               <Component id="jpnQuanLyQuy" alignment="0" max="32767" attributes="0"/>
               <Component id="jpnQuanLyQua" alignment="0" max="32767" attributes="0"/>
               <Component id="jpnLapDanhSach" alignment="0" max="32767" attributes="0"/>
-              <Component id="jpnLichSu" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -65,9 +64,7 @@
                   <Component id="jpnQuanLyQua" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jpnLapDanhSach" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jpnLichSu" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="309" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -130,7 +127,7 @@
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; qu&#xe0;"/>
+                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; lo&#x1ea1;i qu&#xe0;"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -145,54 +142,23 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jlbLapDanhSach" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jlbTangQua" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jlbLapDanhSach" alignment="0" pref="40" max="32767" attributes="0"/>
+                  <Component id="jlbTangQua" alignment="0" pref="40" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jlbLapDanhSach">
+            <Component class="javax.swing.JLabel" name="jlbTangQua">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="L&#x1ead;p danh s&#xe1;ch"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="jpnLichSu">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ec" green="ec" red="ec" type="rgb"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jlbLichSu" alignment="0" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jlbLichSu" alignment="0" pref="40" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="jlbLichSu">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="12" style="1"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="L&#x1ecb;ch s&#x1eed;"/>
+                <Property name="text" type="java.lang.String" value="Trao qu&#xe0;"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -214,7 +180,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="496" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

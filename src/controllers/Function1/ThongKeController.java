@@ -77,7 +77,7 @@ public class ThongKeController {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 1) {
                     NhanKhauModel temp = listNK.get(table.getSelectedRow());
-                    NhanKhau_Info info = new NhanKhau_Info();
+                    NhanKhau_Info info = new NhanKhau_Info(temp);
                     MainFrame.it.setEnabled(false);
                     info.setLocationRelativeTo(null);
                     info.setVisible(true);
@@ -94,7 +94,7 @@ public class ThongKeController {
             tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, item.getMaHoKhau(), item.getCmnd(),
                 item.getHoTen(), item.getNgaySinh(), item.getGioiTinh(), item.getDcHienNay(),
                 (("cập nhật".equals(item.getTinhTrang().trim())) || ("chuyển đi".equals(item.getTinhTrang().trim()))
-                || ("khai tử".equals(item.getTinhTrang().trim()))) ? "sinh sống" : item.getTinhTrang()});
+                || ("đã mất".equals(item.getTinhTrang().trim()))) ? "sinh sống" : item.getTinhTrang()});
         });
     }
 
@@ -131,7 +131,7 @@ public class ThongKeController {
                         }
                         if (cbTinhTrang.getSelectedItem().toString().trim().equals("Sinh sống và có hộ khẩu tại đây")) {
                             query += "WHERE ((tinhtrang LIKE 'sinh sống' "
-                                    + "OR tinhtrang LIKE 'chuyển đi' OR tinhtrang LIKE 'khai tử' "
+                                    + "OR tinhtrang LIKE 'chuyển đi' OR tinhtrang LIKE 'đã mất' "
                                     + "OR (tinhtrang LIKE 'cập nhật' AND tungay > '" + txtTuNgay.getText().trim() + "')) "
                                     + "AND ngaychuyenden <= '" + txtDenNgay.getText().trim() + "' "
                                     + "AND ngaychuyendi >= '" + txtTuNgay.getText().trim() + "') ";
