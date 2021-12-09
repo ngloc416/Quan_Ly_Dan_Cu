@@ -51,7 +51,7 @@ public class HoKhauController {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 1) {
                     HoKhauModel temp = listHK.get(table.getSelectedRow());
-                    HoKhau_Info info = new HoKhau_Info();
+                    HoKhau_Info info = new HoKhau_Info(temp);
                     MainFrame.it.setEnabled(false);
                     info.setLocationRelativeTo(null);
                     info.setVisible(true);

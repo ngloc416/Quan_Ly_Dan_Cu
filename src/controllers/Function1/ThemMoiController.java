@@ -62,7 +62,7 @@ public class ThemMoiController {
                     txtMaHoKhau.setText(hoKhauSelected.getMaHoKhau());
                     txtTenChuHo.setText(hoKhauSelected.getHoTenChuHo());
                 } else {                    
-                    HoKhau_Info info = new HoKhau_Info();
+                    HoKhau_Info info = new HoKhau_Info(temp);
                     MainFrame.it.setEnabled(false);
                     info.setLocationRelativeTo(null);
                     info.setVisible(true);

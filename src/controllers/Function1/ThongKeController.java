@@ -78,6 +78,7 @@ public class ThongKeController {
                 if (e.getClickCount() > 1) {
                     NhanKhauModel temp = listNK.get(table.getSelectedRow());
                     NhanKhau_Info info = new NhanKhau_Info(temp);
+                    info.btn.setVisible(false);
                     MainFrame.it.setEnabled(false);
                     info.setLocationRelativeTo(null);
                     info.setVisible(true);
