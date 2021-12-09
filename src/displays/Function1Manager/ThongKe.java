@@ -5,7 +5,7 @@
  */
 package displays.Function1Manager;
 
-import controllers.ThongKeController;
+import controllers.Function1.ThongKeController;
 
 /**
  *
@@ -285,7 +285,7 @@ public class ThongKe extends javax.swing.JPanel {
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         this.controller = new ThongKeController(cbGioiTinh, cbTinhTrang, txtTuTuoi, txtDenTuoi,
                 txtTuNgay, txtDenNgay, table);
-        txtTong.setText("" + table.getRowCount());
+        txtTong.setText("" + table.getRowCount());        
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void txtTuNgayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTuNgayActionPerformed

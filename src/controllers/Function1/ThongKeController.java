@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.Function1;
 
 import displays.Function1Manager.NhanKhau_Info;
 import displays.MainFrame;
@@ -38,6 +38,26 @@ public class ThongKeController {
     private DefaultTableModel tableModel;
     private List<NhanKhauModel> listNK = new ArrayList<>();
 
+    public ThongKeController(int tuTuoi, int denTuoi, List<NhanKhauModel> list, JTable table) { //thong ke tang qua
+        String s[] = {"Toàn bộ", "Sinh sống và có hộ khẩu tại đây"};
+        this.cbGioiTinh = new JComboBox(s);
+        this.cbGioiTinh.setSelectedItem("Toàn bộ");
+        this.cbTinhTrang = new JComboBox(s);
+        this.cbTinhTrang.setSelectedItem("Sinh sống và có hộ khẩu tại đây");
+        this.txtTuTuoi = new JTextField();
+        this.txtTuTuoi.setText("" + tuTuoi);
+        this.txtDenTuoi = new JTextField();
+        this.txtDenTuoi.setText("" + denTuoi);
+        this.txtTuNgay = new JTextField();
+        this.txtTuNgay.setText("");
+        this.txtDenNgay = new JTextField();
+        this.txtDenNgay.setText("");
+        this.tableModel = (DefaultTableModel) table.getModel();
+        
+        list = find();
+        
+    }
+    
     public ThongKeController(JComboBox cbGioiTinh, JComboBox cbTinhTrang, JTextField txtTuTuoi,
             JTextField txtDenTuoi, JTextField txtTuNgay, JTextField txtDenNgay, JTable table) {
         this.cbGioiTinh = cbGioiTinh;
