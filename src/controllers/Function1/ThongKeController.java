@@ -35,10 +35,14 @@ public class ThongKeController {
     private JTextField txtDenTuoi;
     private JTextField txtTuNgay;
     private JTextField txtDenNgay;
+    private String ngheNghiep;
     private DefaultTableModel tableModel;
     private List<NhanKhauModel> listNK = new ArrayList<>();
 
-    public ThongKeController(int tuTuoi, int denTuoi, List<NhanKhauModel> list, JTable table) { //thong ke tang qua
+    public ThongKeController() {
+    }
+
+    public List<NhanKhauModel> ThongKeTQ(int tuTuoi, int denTuoi, String nghe) { //thong ke tang qua
         String s[] = {"Toàn bộ", "Sinh sống và có hộ khẩu tại đây"};
         this.cbGioiTinh = new JComboBox(s);
         this.cbGioiTinh.setSelectedItem("Toàn bộ");
@@ -52,9 +56,9 @@ public class ThongKeController {
         this.txtTuNgay.setText("");
         this.txtDenNgay = new JTextField();
         this.txtDenNgay.setText("");
-        this.tableModel = (DefaultTableModel) table.getModel();
+        this.ngheNghiep = nghe.trim();
         
-        list = find();
+        return find();
         
     }
     
@@ -67,6 +71,7 @@ public class ThongKeController {
         this.txtTuNgay = txtTuNgay;
         this.txtDenNgay = txtDenNgay;
         this.tableModel = (DefaultTableModel) table.getModel();
+        this.ngheNghiep = "";
 
         listNK = find();
         showNhanKhau();
@@ -156,6 +161,10 @@ public class ThongKeController {
 
                 if (!txtDenTuoi.getText().trim().isEmpty()) {
                     query += "AND ROUND(DATEDIFF(CURDATE(), ngaysinh) / 365, 0) <= " + txtDenTuoi.getText().trim() + " ";
+                }
+                
+                if (!ngheNghiep.isEmpty()) {
+                    query += "AND nghenghiep LIKE '" + ngheNghiep + "' ";
                 }
 
                 query += "ORDER BY mahokhau, hoten";
