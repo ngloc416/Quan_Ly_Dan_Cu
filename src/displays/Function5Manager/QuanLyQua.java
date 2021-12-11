@@ -29,7 +29,8 @@ import utilities.MysqlConnection;
  */
 public class QuanLyQua extends javax.swing.JPanel {
 
-    private List<PhanQuaModel> listPQ;
+    private List<PhanQuaModel> listPQHC;
+    private List<PhanQuaModel> listPQLS;
     Locale localeVN = new Locale("vi", "VN");
     NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
 
@@ -38,8 +39,8 @@ public class QuanLyQua extends javax.swing.JPanel {
      */
     public QuanLyQua() {
         initComponents();
-        listPQ = findAll();
-
+        listPQHC = findHienCo();
+        listPQLS = findLichSu();
         hienThiPhanQuaHienCo();
         hienThiLichSu();
 
@@ -47,8 +48,8 @@ public class QuanLyQua extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 1) {
-                    PhanQuaModel temp = listPQ.get(tblHienCo.getSelectedRow());
-                    if (JOptionPane.showConfirmDialog(null, "Dịp tặng này đã kết thúc?", "Warning!", JOptionPane.YES_NO_OPTION) == 0) {
+                    PhanQuaModel temp = listPQHC.get(tblHienCo.getSelectedRow());
+                    if (JOptionPane.showConfirmDialog(null, "Dịp tặng '" + temp.getDip() + "' đã kết thúc?", "Warning!", JOptionPane.YES_NO_OPTION) == 0) {
                         try {
                             try ( Connection connection = MysqlConnection.getMysqlConnection()) {
                                 String query = "UPDATE phanqua SET tinhtrang = ? WHERE id = " + temp.getId();
@@ -61,7 +62,7 @@ public class QuanLyQua extends javax.swing.JPanel {
                             JOptionPane.showMessageDialog(null, ee.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
                         }
 
-                        String moTa = "- " + temp.getTongGiaTri() + " VNĐ do tặng phần thưởng '" + temp.getDip() + "' ngày "
+                        String moTa = "- " + currencyVN.format(temp.getTongGiaTri()) + " VNĐ do tặng phần thưởng '" + temp.getDip() + "' ngày "
                                 + temp.getThoiGian().toString();
                         int soDuCu = getSoDu();
                         int soDuMoi = soDuCu - temp.getTongGiaTri();
@@ -75,7 +76,8 @@ public class QuanLyQua extends javax.swing.JPanel {
                         } catch (SQLException | ClassNotFoundException ex) {
                             Logger.getLogger(QuanLyQuy.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        listPQ = findAll();
+                        listPQHC = findHienCo();
+                        listPQLS = findLichSu();
                         hienThiPhanQuaHienCo();
                         hienThiLichSu();
                     }
@@ -85,11 +87,41 @@ public class QuanLyQua extends javax.swing.JPanel {
         });
     }
 
-    private List<PhanQuaModel> findAll() {
+    private List<PhanQuaModel> findHienCo() {
         List<PhanQuaModel> res = new ArrayList<>();
         try {
             try ( Connection connection = MysqlConnection.getMysqlConnection()) {
-                String query = "SELECT *  FROM phanqua ORDER BY thoigian DESC";
+                String query = "SELECT *  FROM phanqua WHERE tinhtrang LIKE 'đang tặng' ORDER BY thoigian DESC";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                try ( ResultSet rs = preparedStatement.executeQuery()) {
+                    while (rs.next()) {
+                        PhanQuaModel phanQua = new PhanQuaModel();
+
+                        phanQua.setId(rs.getInt("id"));
+                        phanQua.setThoiGian(rs.getDate("thoigian"));
+                        phanQua.setDip(rs.getString("dip"));
+                        phanQua.setGiaTri(rs.getInt("giatri"));
+                        phanQua.setTongQua(rs.getInt("tongqua"));
+                        phanQua.setTongGiaTri(rs.getInt("tonggiatri"));
+                        phanQua.setTinhTrang(rs.getString("tinhtrang"));
+
+                        res.add(phanQua);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyQua.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuanLyQua.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
+
+    private List<PhanQuaModel> findLichSu() {
+        List<PhanQuaModel> res = new ArrayList<>();
+        try {
+            try ( Connection connection = MysqlConnection.getMysqlConnection()) {
+                String query = "SELECT *  FROM phanqua WHERE tinhtrang LIKE 'kết thúc'ORDER BY thoigian DESC";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 try ( ResultSet rs = preparedStatement.executeQuery()) {
                     while (rs.next()) {
@@ -119,11 +151,9 @@ public class QuanLyQua extends javax.swing.JPanel {
         DefaultTableModel tableModel = (DefaultTableModel) tblHienCo.getModel();
         tableModel.setRowCount(0);
 
-        listPQ.forEach(item -> {
-            if (item.getTinhTrang().equals("đang tặng")) {
-                tableModel.addRow(new Object[]{item.getThoiGian(), item.getDip(), currencyVN.format(item.getGiaTri()), item.getTongQua(),
-                    currencyVN.format(item.getTongGiaTri())});
-            }
+        listPQHC.forEach(item -> {
+            tableModel.addRow(new Object[]{item.getThoiGian(), item.getDip(), currencyVN.format(item.getGiaTri()), item.getTongQua(),
+                currencyVN.format(item.getTongGiaTri())});
         });
     }
 
@@ -131,11 +161,9 @@ public class QuanLyQua extends javax.swing.JPanel {
         DefaultTableModel tableModel = (DefaultTableModel) tblLichSu.getModel();
         tableModel.setRowCount(0);
 
-        listPQ.forEach(item -> {
-            if (item.getTinhTrang().equals("kết thúc")) {
-                tableModel.addRow(new Object[]{item.getThoiGian(), item.getDip(), currencyVN.format(item.getGiaTri()), item.getTongQua(),
-                    currencyVN.format(item.getTongGiaTri())});
-            }
+        listPQLS.forEach(item -> {
+            tableModel.addRow(new Object[]{item.getThoiGian(), item.getDip(), currencyVN.format(item.getGiaTri()), item.getTongQua(),
+                currencyVN.format(item.getTongGiaTri())});
         });
     }
 
@@ -320,7 +348,7 @@ public class QuanLyQua extends javax.swing.JPanel {
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyQua.class.getName()).log(Level.SEVERE, null, ex);
             }
-            listPQ = findAll();
+            listPQHC = findHienCo();
             hienThiPhanQuaHienCo();
         }
     }//GEN-LAST:event_btnThemActionPerformed

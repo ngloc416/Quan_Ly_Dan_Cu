@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="cc" type="rgb"/>
@@ -92,10 +92,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="cbChonDip" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnHienThiDs" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel5" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="cbChonDip" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -117,13 +119,15 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtSoLg" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtTongNg" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" max="32767" attributes="0"/>
-                          <Component id="jLabel8" alignment="3" max="32767" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" max="32767" attributes="0"/>
-                          <Component id="txtTongTien" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel3" alignment="3" max="32767" attributes="0"/>
+                              <Component id="jLabel8" alignment="3" max="32767" attributes="0"/>
+                              <Component id="jLabel7" alignment="3" max="32767" attributes="0"/>
+                              <Component id="txtTongTien" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnLuu" min="-2" max="-2" attributes="0"/>
@@ -156,6 +160,9 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbChonDipActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

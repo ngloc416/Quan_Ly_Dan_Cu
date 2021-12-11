@@ -61,7 +61,7 @@ public class ThemMoiController {
                     hoKhauSelected = temp;
                     txtMaHoKhau.setText(hoKhauSelected.getMaHoKhau());
                     txtTenChuHo.setText(hoKhauSelected.getHoTenChuHo());
-                } else {                    
+                } else {
                     HoKhau_Info info = new HoKhau_Info(temp);
                     MainFrame.it.setEnabled(false);
                     info.setLocationRelativeTo(null);
@@ -71,7 +71,7 @@ public class ThemMoiController {
 
         });
     }
-    
+
     //hiển thị các hộ khẩu đã có để chọn trong frame thêm mới
     private void showHoKhau() {
         tableModel.setRowCount(0);
@@ -195,7 +195,9 @@ public class ThemMoiController {
                     st.setString(11, nhanKhau.getNgheNghiep());
                     st.setString(12, nhanKhau.getNoiLamViec());
                     st.setString(13, nhanKhau.getCmnd());
-                    if (nhanKhau.getNgayCap() != null) {
+                    if (nhanKhau.getNoiCap().trim().isEmpty()) {
+                        st.setDate(14, null);
+                    } else if (nhanKhau.getNgayCap() != null) {
                         Date ngayCap = new Date(nhanKhau.getNgayCap().getTime());
                         st.setDate(14, ngayCap);
                     } else {
@@ -209,7 +211,7 @@ public class ThemMoiController {
                         st.setDate(16, null);
                     }
                     st.setString(17, nhanKhau.getNoiTruocChuyenDen());
-                    if (nhanKhau.getNgayChuyenDi()!= null) {
+                    if (nhanKhau.getNgayChuyenDi() != null) {
                         Date ngayChuyenDi = new Date(nhanKhau.getNgayChuyenDi().getTime());
                         st.setDate(18, ngayChuyenDi);
                     } else {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 10, 2021 lúc 04:39 PM
+-- Thời gian đã tạo: Th12 11, 2021 lúc 08:38 AM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.12
 
@@ -53,7 +53,8 @@ INSERT INTO `giadinh` (`id`, `idhokhau`, `idnhankhau`, `quanhechuho`) VALUES
 (65, 23, 84, 'con trai'),
 (66, 23, 91, 'con trai'),
 (67, 22, 92, 'con gái'),
-(68, 23, 93, 'con trai');
+(68, 23, 93, 'con trai'),
+(69, 22, 94, 'con gái');
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,8 @@ INSERT INTO `nhankhau` (`id`, `hoten`, `bidanh`, `ngaysinh`, `gioitinh`, `noisin
 (90, 'Hoàng Văn V', NULL, '1995-12-10', 'Nam', NULL, NULL, 'HN', NULL, NULL, 'VN', NULL, NULL, '963258741114', NULL, NULL, NULL, 'HCM', NULL, NULL, 'tạm trú', '2021-12-04', '2021-12-18', '2021-12-10'),
 (91, 'Bùi Văn P', '', '2006-12-10', 'Nam', 'HN', 'HN', 'HN', 'Kinh', 'không', 'VN', 'Học sinh', 'HN', '789852963123', '2021-12-10', '', '2006-12-10', 'HN', '4900-02-01', NULL, 'sinh sống', NULL, NULL, '2021-12-10'),
 (92, 'Nguyễn Thị M', '', '2012-12-10', 'Nữ', 'hn', 'hn', 'hn', 'kinh', 'không', 'VN', 'học sinh', 'hn', '789489624852', '2021-12-10', '', '2012-12-10', 'hn', '4900-02-01', NULL, 'sinh sống', NULL, NULL, '2021-12-10'),
-(93, 'Bùi Văn Q', '', '2020-12-10', 'Nam', 'hn', 'hn', 'hn', 'kinh', 'không', 'vn', 'mới sinh', 'mới sinh', '789485236954', '2021-12-10', '', '2020-12-10', 'hn', '4900-02-01', NULL, 'sinh sống', NULL, NULL, '2021-12-10');
+(93, 'Bùi Văn Q', '', '2020-12-10', 'Nam', 'hn', 'hn', 'hn', 'kinh', 'không', 'vn', 'mới sinh', 'mới sinh', '789485236954', '2021-12-10', '', '2020-12-10', 'hn', '4900-02-01', NULL, 'sinh sống', NULL, NULL, '2021-12-10'),
+(94, 'Nguyễn Thị Y', '', '2019-12-11', 'Nữ', 'HN', 'HN', 'HN', 'kinh', 'không', 'VN', 'mới sinh', 'mới sinh', '753951852456', NULL, '', '2019-12-11', 'mới sinh', '4900-02-01', NULL, 'sinh sống', NULL, NULL, '2021-12-11');
 
 -- --------------------------------------------------------
 
@@ -149,7 +151,7 @@ INSERT INTO `nhankhau` (`id`, `hoten`, `bidanh`, `ngaysinh`, `gioitinh`, `noisin
 DROP TABLE IF EXISTS `phanqua`;
 CREATE TABLE `phanqua` (
   `id` int(11) NOT NULL,
-  `thoigian` date NOT NULL DEFAULT current_timestamp(),
+  `thoigian` datetime NOT NULL DEFAULT current_timestamp(),
   `dip` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `giatri` int(11) DEFAULT NULL,
   `tongqua` int(11) DEFAULT NULL,
@@ -163,9 +165,14 @@ CREATE TABLE `phanqua` (
 --
 
 INSERT INTO `phanqua` (`id`, `thoigian`, `dip`, `giatri`, `tongqua`, `tonggiatri`, `taods`, `tinhtrang`) VALUES
-(4, '2021-12-10', 'Tết Nguyên Đán', 20000, 5, 100000, 'true', 'đang tặng'),
-(5, '2021-12-10', 'Tết thiếu nhi 1/6', NULL, NULL, NULL, 'false', 'đang tặng'),
-(6, '2021-12-10', 'Thưởng học tập', 50000, 17, 850000, 'true', 'kết thúc');
+(4, '2021-12-10 00:00:00', 'Tết Nguyên Đán', 20000, 5, 100000, 'true', 'kết thúc'),
+(5, '2021-12-10 00:00:00', 'Tết thiếu nhi 1/6', 50000, 4, 200000, 'true', 'kết thúc'),
+(6, '2021-12-10 00:00:00', 'Thưởng học tập', 50000, 17, 850000, 'true', 'kết thúc'),
+(11, '2021-12-11 14:26:56', 'Tết thiếu nhi 1/6', NULL, NULL, NULL, 'false', 'kết thúc'),
+(12, '2021-12-11 14:27:16', 'Thưởng học tập', NULL, NULL, NULL, 'false', 'kết thúc'),
+(13, '2021-12-11 14:28:42', 'Thưởng học tập', 40000, 10, 400000, 'true', 'kết thúc'),
+(14, '2021-12-11 14:28:46', 'Trung thu', 60000, 4, 240000, 'true', 'kết thúc'),
+(15, '2021-12-11 14:34:10', 'Tết thiếu nhi 1/6', 20000, 4, 80000, 'true', 'kết thúc');
 
 -- --------------------------------------------------------
 
@@ -194,7 +201,15 @@ INSERT INTO `quyphanthuong` (`id`, `thoigian`, `sodu`, `mota`) VALUES
 (49, '2021-12-10 19:09:37', 16010000, '+ 500000 VNĐ vào quỹ'),
 (50, '2021-12-10 22:24:11', 15160000, '- 850000 VNĐ do tặng phần thưởng \'Thưởng học tập\' ngày 2021-12-10'),
 (51, '2021-12-10 22:25:31', 15360000, '+ 200000 VNĐ vào quỹ'),
-(52, '2021-12-10 22:38:14', 15410000, '+ 50000 VNĐ vào quỹ');
+(52, '2021-12-10 22:38:14', 15410000, '+ 50000 VNĐ vào quỹ'),
+(53, '2021-12-11 13:35:51', 15460000, '+ 50.000 ₫ VNĐ vào quỹ'),
+(54, '2021-12-11 13:36:16', 14460000, '+ -1.000.000 ₫ VNĐ vào quỹ'),
+(69, '2021-12-11 14:24:20', 14260000, '- 200.000 ₫ VNĐ do tặng phần thưởng \'Tết thiếu nhi 1/6\' ngày 2021-12-10'),
+(70, '2021-12-11 14:27:02', 14260000, '- 0 ₫ VNĐ do tặng phần thưởng \'Tết thiếu nhi 1/6\' ngày 2021-12-11'),
+(71, '2021-12-11 14:27:19', 14260000, '- 0 ₫ VNĐ do tặng phần thưởng \'Thưởng học tập\' ngày 2021-12-11'),
+(72, '2021-12-11 14:29:57', 14020000, '- 240.000 ₫ VNĐ do tặng phần thưởng \'Trung thu\' ngày 2021-12-11'),
+(73, '2021-12-11 14:29:59', 13620000, '- 400.000 ₫ VNĐ do tặng phần thưởng \'Thưởng học tập\' ngày 2021-12-11'),
+(74, '2021-12-11 14:36:59', 13540000, '- 80.000 ₫ VNĐ do tặng phần thưởng \'Tết thiếu nhi 1/6\' ngày 2021-12-11');
 
 -- --------------------------------------------------------
 
@@ -223,7 +238,21 @@ INSERT INTO `tangqua` (`id`, `idphanqua`, `mahokhau`, `hoten`, `gioitinh`, `ngay
 (20, 6, 'HK23', 'Bùi Văn P', 'Nam', '2006-12-10', 7, NULL),
 (21, 4, 'HK1', 'Nguyễn Thị M', 'Nữ', '2012-12-10', 1, NULL),
 (22, 4, 'HK23', 'Bùi Văn P', 'Nam', '2006-12-10', 3, NULL),
-(23, 4, 'HK23', 'Bùi Văn Q', 'Nam', '2020-12-10', 1, NULL);
+(23, 4, 'HK23', 'Bùi Văn Q', 'Nam', '2020-12-10', 1, NULL),
+(24, 5, 'HK1', 'Nguyễn Thị M', 'Nữ', '2012-12-10', 1, NULL),
+(25, 5, 'HK1', 'Nguyễn Thị Y', 'Nữ', '2019-12-11', 1, NULL),
+(26, 5, 'HK23', 'Bùi Văn P', 'Nam', '2006-12-10', 1, NULL),
+(27, 5, 'HK23', 'Bùi Văn Q', 'Nam', '2020-12-10', 1, NULL),
+(28, 14, 'HK1', 'Nguyễn Thị M', 'Nữ', '2012-12-10', 1, NULL),
+(29, 14, 'HK1', 'Nguyễn Thị Y', 'Nữ', '2019-12-11', 1, NULL),
+(30, 14, 'HK23', 'Bùi Văn P', 'Nam', '2006-12-10', 1, NULL),
+(31, 14, 'HK23', 'Bùi Văn Q', 'Nam', '2020-12-10', 1, NULL),
+(32, 13, 'HK1', 'Nguyễn Thị M', 'Nữ', '2012-12-10', 5, NULL),
+(33, 13, 'HK23', 'Bùi Văn P', 'Nam', '2006-12-10', 5, NULL),
+(34, 15, 'HK1', 'Nguyễn Thị M', 'Nữ', '2012-12-10', 1, NULL),
+(35, 15, 'HK1', 'Nguyễn Thị Y', 'Nữ', '2019-12-11', 1, NULL),
+(36, 15, 'HK23', 'Bùi Văn P', 'Nam', '2006-12-10', 1, NULL),
+(37, 15, 'HK23', 'Bùi Văn Q', 'Nam', '2020-12-10', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -330,7 +359,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `giadinh`
 --
 ALTER TABLE `giadinh`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT cho bảng `hokhau`
@@ -342,25 +371,25 @@ ALTER TABLE `hokhau`
 -- AUTO_INCREMENT cho bảng `nhankhau`
 --
 ALTER TABLE `nhankhau`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT cho bảng `phanqua`
 --
 ALTER TABLE `phanqua`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT cho bảng `quyphanthuong`
 --
 ALTER TABLE `quyphanthuong`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT cho bảng `tangqua`
 --
 ALTER TABLE `tangqua`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT cho bảng `thaydoihokhau`

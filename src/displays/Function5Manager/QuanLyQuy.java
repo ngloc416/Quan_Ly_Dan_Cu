@@ -186,8 +186,8 @@ public class QuanLyQuy extends javax.swing.JPanel {
         tblLichSu.setRowHeight(22);
         jScrollPane3.setViewportView(tblLichSu);
         if (tblLichSu.getColumnModel().getColumnCount() > 0) {
-            tblLichSu.getColumnModel().getColumn(0).setMinWidth(150);
-            tblLichSu.getColumnModel().getColumn(0).setMaxWidth(150);
+            tblLichSu.getColumnModel().getColumn(0).setMinWidth(120);
+            tblLichSu.getColumnModel().getColumn(0).setMaxWidth(120);
             tblLichSu.getColumnModel().getColumn(1).setMinWidth(100);
             tblLichSu.getColumnModel().getColumn(1).setMaxWidth(100);
             tblLichSu.getColumnModel().getColumn(2).setMinWidth(100);
@@ -260,7 +260,7 @@ public class QuanLyQuy extends javax.swing.JPanel {
         } else if (JOptionPane.showConfirmDialog(null, "Bạn có muốn thêm không?", "Warning!", JOptionPane.YES_NO_OPTION) == 0) {
             try {
                 int soTien = Integer.parseInt(txtTienThem.getText());
-                String moTa = "+ " + soTien + " VNĐ vào quỹ";
+                String moTa = "+ " + currencyVN.format(soTien) + " VNĐ vào quỹ";
                 int soDuCu = getSoDu();
                 int soDuMoi = soDuCu + soTien;
 
