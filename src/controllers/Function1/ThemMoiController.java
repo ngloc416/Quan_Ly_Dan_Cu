@@ -195,7 +195,7 @@ public class ThemMoiController {
                     st.setString(11, nhanKhau.getNgheNghiep());
                     st.setString(12, nhanKhau.getNoiLamViec());
                     st.setString(13, nhanKhau.getCmnd());
-                    if (nhanKhau.getNoiCap().trim().isEmpty()) {
+                    if (nhanKhau.getNoiCap() == null || nhanKhau.getNoiCap().trim().isEmpty()) {
                         st.setDate(14, null);
                     } else if (nhanKhau.getNgayCap() != null) {
                         Date ngayCap = new Date(nhanKhau.getNgayCap().getTime());
