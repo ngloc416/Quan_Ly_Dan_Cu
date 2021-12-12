@@ -12,6 +12,7 @@ import controllers.Function1.ThemMoiController;
 import displays.MainFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import models.HoKhauModel;
@@ -276,19 +277,35 @@ public class NhanKhau_ChuyenDi extends javax.swing.JFrame {
                 && txtCmnd.getText().trim().length() != 9
                 && txtCmnd.getText().trim().length() != 12) {
             check = false;
+            txtHoTen.setText("");
+            txtGioiTinh.setText("");
+            txtQuocTich.setText("");
+            txtNoiChuyenDen.setText("");
+            txtNoiThuongTru.setText("");
+            dateNgayChuyenDi.setDate(new Date());
+            dateNgaySinh.setDate(new Date());
             JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else if (tmController.checkCmndSs(txtCmnd.getText().trim())) {
             check = false;
+            txtHoTen.setText("");
+            txtGioiTinh.setText("");
+            txtQuocTich.setText("");
+            txtNoiChuyenDen.setText("");
+            txtNoiThuongTru.setText("");
+            dateNgayChuyenDi.setDate(new Date());
+            dateNgaySinh.setDate(new Date());
             JOptionPane.showMessageDialog(rootPane, "Số CMT/CCCD chưa có trong hệ thống hoặc đang tạm trú/tạm vắng!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else {
+            HoKhau_Info hkInfo = new HoKhau_Info();
+            int countMember = 0;
             if (!hkController.findByCondition(txtCmnd.getText().trim()).isEmpty()) {
                 hoKhau = hkController.findByCondition(txtCmnd.getText().trim()).get(0);
+                hkInfo.hoKhau = hoKhau;
+                countMember = hkInfo.findMember().size();
             } else {
                 hoKhau = null;
             }
-            if (hoKhau == null || JOptionPane.showConfirmDialog(null, "Người này là chủ hộ " + hoKhau.getMaHoKhau()
-                    + ", nếu chuyển đi sẽ xóa hộ này. Bạn nên đổi chủ hộ trước. Bạn có muốn tiếp tục "
-                    + "thực hiện chuyển đi không?", "Warning!", JOptionPane.YES_NO_OPTION) == 0) {
+            if (hoKhau == null || countMember <= 1) {
                 check = true;
                 JOptionPane.showMessageDialog(rootPane, "Kiểm tra thành công!");
 
@@ -298,6 +315,17 @@ public class NhanKhau_ChuyenDi extends javax.swing.JFrame {
                 txtGioiTinh.setText(nhanKhau.getGioiTinh());
                 txtQuocTich.setText(nhanKhau.getQuocTich());
                 txtNoiThuongTru.setText(nhanKhau.getDcHienNay());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Người này là chủ hộ " + hoKhau.getMaHoKhau()
+                        + " và hộ này có nhiều hơn 1 thành viên. Bạn cần đổi chủ hộ trước!", "Warning!", JOptionPane.WARNING_MESSAGE);
+                check = false;
+                txtHoTen.setText("");
+                txtGioiTinh.setText("");
+                txtQuocTich.setText("");
+                txtNoiChuyenDen.setText("");
+                txtNoiThuongTru.setText("");
+                dateNgayChuyenDi.setDate(new Date());
+                dateNgaySinh.setDate(new Date());
             }
         }
     }//GEN-LAST:event_btnKiemTraActionPerformed
@@ -313,6 +341,13 @@ public class NhanKhau_ChuyenDi extends javax.swing.JFrame {
                 && txtCmnd.getText().trim().length() != 9
                 && txtCmnd.getText().trim().length() != 12) {
             check = false;
+            txtHoTen.setText("");
+            txtGioiTinh.setText("");
+            txtQuocTich.setText("");
+            txtNoiChuyenDen.setText("");
+            txtNoiThuongTru.setText("");
+            dateNgayChuyenDi.setDate(new Date());
+            dateNgaySinh.setDate(new Date());
             JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else if (check && checkNullInForm()) {
 
@@ -330,10 +365,10 @@ public class NhanKhau_ChuyenDi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Đăng ký chuyển đi thành công!");
             MainFrame.it.setEnabled(true);
             dispose();
+        } else if (check == false) {
+            JOptionPane.showMessageDialog(rootPane, "Chưa nhấn nút kiểm tra!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else if (!checkNullInForm()) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng điền hết các trường!", "Warning!", JOptionPane.WARNING_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Chưa nhấn nút kiểm tra!", "Warning!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 

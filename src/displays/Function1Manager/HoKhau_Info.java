@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -35,21 +36,30 @@ public class HoKhau_Info extends javax.swing.JFrame {
     HoKhauModel hoKhau;
     private List<ThanhVienModel> listTV = new ArrayList<>();
     private DefaultTableModel tableModel;
-    
+    public JButton btn1;
+    public JButton btn2;
+    public JButton btn3;
+
+    public HoKhau_Info() {
+    }
+
     public HoKhau_Info(HoKhauModel hoKhau) {
         initComponents();
+        this.btn1 = btnDoiChuHo;
+        this.btn2 = btnTachHo;
+        this.btn3 = btnChuyenDi;
         this.hoKhau = hoKhau;
         this.tableModel = (DefaultTableModel) table.getModel();
-        
+
         txtMaHK.setText(hoKhau.getMaHoKhau());
         txtCmnd.setText(hoKhau.getCmndChuHo());
         txtHoTen.setText(hoKhau.getHoTenChuHo());
         txtDc.setText(hoKhau.getDiaChi());
-        txtNgayTao.setText(hoKhau.getNgayLap().toString()); 
-        
-        listTV = find();
+        txtNgayTao.setText(hoKhau.getNgayLap().toString());
+
+        listTV = findMember();
         showMember();
-        
+
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -65,19 +75,19 @@ public class HoKhau_Info extends javax.swing.JFrame {
         MainFrame.it.setEnabled(true);
         dispose();
     }
-    
+
     private void showMember() {
         tableModel.setRowCount(0);
 
         listTV.forEach(item -> {
             tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, item.nhanKhau.getCmnd(), item.nhanKhau.getHoTen(),
-                item.nhanKhau.getNgaySinh(), item.nhanKhau.getGioiTinh(), item.giaDinh.getQhChuHo(), 
+                item.nhanKhau.getNgaySinh(), item.nhanKhau.getGioiTinh(), item.giaDinh.getQhChuHo(),
                 (("cập nhật".equals(item.nhanKhau.getTinhTrang().trim())) || ("chuyển đi".equals(item.nhanKhau.getTinhTrang().trim())))
                 ? "sinh sống" : item.nhanKhau.getTinhTrang()});
         });
     }
 
-    private List<ThanhVienModel> find() {
+    public List<ThanhVienModel> findMember() {
         List<ThanhVienModel> list = new ArrayList<>();
         try {
             try ( Connection connection = MysqlConnection.getMysqlConnection()) {
@@ -95,7 +105,7 @@ public class HoKhau_Info extends javax.swing.JFrame {
                     while (rs.next()) {
                         NhanKhauModel nhanKhau = new NhanKhauModel();
                         GiaDinhModel giaDinh = new GiaDinhModel();
-                        
+
                         nhanKhau.setId(rs.getInt("id"));
                         nhanKhau.setMaHoKhau(rs.getString("mahokhau"));
                         nhanKhau.setHoTen(rs.getString("hoten"));
@@ -121,12 +131,12 @@ public class HoKhau_Info extends javax.swing.JFrame {
                         nhanKhau.setTuNgay(rs.getDate("tungay"));
                         nhanKhau.setDenNgay(rs.getDate("denngay"));
                         nhanKhau.setNgayLap(rs.getDate("ngaylap"));
-                        
+
                         giaDinh.setId(rs.getInt("idgiadinh"));
                         giaDinh.setIdHoKhau(rs.getInt("idhokhau"));
                         giaDinh.setIdNhanKhau(rs.getInt("idnhankhau"));
                         giaDinh.setQhChuHo(rs.getString("quanhechuho"));
-                        
+
                         ThanhVienModel tvm = new ThanhVienModel(nhanKhau, giaDinh);
 
                         list.add(tvm);
