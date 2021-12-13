@@ -51,6 +51,10 @@ public class NhanKhauController {
                 if (e.getClickCount() > 1) {
                     NhanKhauModel temp = listNK.get(table.getSelectedRow());
                     NhanKhau_Info info = new NhanKhau_Info(temp);
+                    info.txt1.setVisible(false);
+                    info.txt2.setVisible(false);
+                    info.lb1.setVisible(false);
+                    info.lb2.setVisible(false);
                     MainFrame.it.setEnabled(false);
                     info.setLocationRelativeTo(null);
                     info.setVisible(true);

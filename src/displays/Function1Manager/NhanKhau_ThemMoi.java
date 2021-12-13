@@ -5,6 +5,7 @@
  */
 package displays.Function1Manager;
 
+import controllers.Function1.HoKhau_InfoController;
 import controllers.Function1.ThemMoiController;
 import displays.MainFrame;
 import java.awt.event.WindowAdapter;
@@ -14,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import models.HoKhauModel;
 import models.NhanKhauModel;
+import models.ThayDoiHKModel;
 
 /**
  *
@@ -822,7 +824,7 @@ public class NhanKhau_ThemMoi extends javax.swing.JFrame {
             check = false;
             JOptionPane.showMessageDialog(rootPane, "Định dạng số CMT/CCCD không hợp lệ!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else if (check) {
-            NhanKhauModel nhanKhau = new NhanKhauModel(txtMaHoKhau.getText().trim(), txtHoTen.getText().trim(), txtBiDanh.getText().trim(),
+            NhanKhauModel nhanKhau = new NhanKhauModel(txtNhapMaHK.getText().trim(), txtHoTen.getText().trim(), txtBiDanh.getText().trim(),
                     dateNgaySinh.getDate(), cbGioiTinh.getSelectedItem().toString().trim(), txtNoiSinh.getText().trim(), txtNguyenQuan.getText().trim(),
                     txtDcHienNay.getText().trim(), txtDanToc.getText().trim(), txtTonGiao.getText().trim(), txtQuocTich.getText().trim(), txtNgheNghiep.getText().trim(),
                     txtNoiLamViec.getText().trim(), txtCmnd.getText().trim(), dateNgayCap.getDate(), txtNoiCap.getText().trim(), dateNgayChuyenDen.getDate(),
@@ -834,7 +836,16 @@ public class NhanKhau_ThemMoi extends javax.swing.JFrame {
             controller.themNhanKhau(nhanKhau);
             controller.themHoKhau(hoKhau);
             controller.themGiaDinh(nhanKhau.getCmnd(), hoKhau.getMaHoKhau(), "chủ hộ");
-
+            
+            HoKhau_InfoController hkInfoController = new HoKhau_InfoController();
+            ThayDoiHKModel model = new ThayDoiHKModel();
+            model.setMaHoKhau(txtNhapMaHK.getText().trim());
+            model.setThongTinThayDoi("Chuyển đến");
+            hkInfoController.themThayDoiHK(model);
+            model.setThongTinThayDoi("Thêm thành viên");
+            model.setNoiDungThayDoi(nhanKhau.getHoTen() + " - " + nhanKhau.getCmnd());
+            hkInfoController.themThayDoiHK(model);
+            
             JOptionPane.showMessageDialog(rootPane, "Thêm nhân khẩu mới thành công!");
             MainFrame.it.setEnabled(true);
             dispose();
@@ -863,10 +874,17 @@ public class NhanKhau_ThemMoi extends javax.swing.JFrame {
                     txtDcHienNay.getText().trim(), txtDanToc.getText().trim(), txtTonGiao.getText().trim(), txtQuocTich.getText().trim(), txtNgheNghiep.getText().trim(),
                     txtNoiLamViec.getText().trim(), txtCmnd.getText().trim(), dateNgayCap.getDate(), txtNoiCap.getText().trim(), dateNgayChuyenDen.getDate(),
                     txtNoiThuongTru.getText().trim(), new Date(3000, 1, 1), "sinh sống", new Date());
-
+              
             controller.themNhanKhau(nhanKhau);
             controller.themGiaDinh(nhanKhau.getCmnd(), txtMaHoKhau.getText().trim(), txtQhChuHo.getText().trim());
-
+            
+            HoKhau_InfoController hkInfoController = new HoKhau_InfoController();
+            ThayDoiHKModel model = new ThayDoiHKModel();
+            model.setMaHoKhau(txtMaHoKhau.getText().trim());
+            model.setThongTinThayDoi("Thêm thành viên");
+            model.setNoiDungThayDoi(nhanKhau.getHoTen() + " - " + nhanKhau.getCmnd());
+            hkInfoController.themThayDoiHK(model);
+            
             JOptionPane.showMessageDialog(rootPane, "Thêm nhân khẩu mới thành công!");
             MainFrame.it.setEnabled(true);
             dispose();

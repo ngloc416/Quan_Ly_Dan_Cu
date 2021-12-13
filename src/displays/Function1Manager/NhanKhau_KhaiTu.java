@@ -7,6 +7,7 @@ package displays.Function1Manager;
 
 import controllers.Function1.CapNhatController;
 import controllers.Function1.HoKhauController;
+import controllers.Function1.HoKhau_InfoController;
 import controllers.Function1.KhaiTuController;
 import displays.MainFrame;
 import java.awt.event.WindowAdapter;
@@ -20,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import models.HoKhauModel;
 import models.NhanKhauModel;
+import models.ThayDoiHKModel;
 import utilities.MysqlConnection;
 
 /**
@@ -372,12 +374,6 @@ public class NhanKhau_KhaiTu extends javax.swing.JFrame {
         if (check1 && check2 && !txtCmndNgKhai.getText().trim().isEmpty() && !txtCmndNgMat.getText().trim().isEmpty()
                 && !txtHoTenNgKhai.getText().trim().isEmpty()) {
 
-            if (hoKhau != null) {
-                hoKhau.setTinhTrang("chuyển đi");
-                hoKhau.setNgayChuyenDi(dateNgayMat.getDate());
-                cnController.capNhatHK(hoKhau.getId(), hoKhau);
-            }
-
             if (ngMat.getTinhTrang().equals("cập nhật")) {
 
                 NhanKhauModel nk = new NhanKhauModel();
@@ -434,6 +430,31 @@ public class NhanKhau_KhaiTu extends javax.swing.JFrame {
             ngMat.setNgayChuyenDi(dateNgayMat.getDate());
             ngMat.setNoiDen("đã qua đời");
             cnController.capNhatNK(ngMat.getId(), ngMat);
+
+            HoKhau_InfoController hkInfoController = new HoKhau_InfoController();
+            ThayDoiHKModel model = new ThayDoiHKModel();
+            model.setMaHoKhau(ngMat.getMaHoKhau());
+            model.setThongTinThayDoi("Xóa thành viên");
+            model.setNoiDungThayDoi(ngMat.getHoTen() + " - " + ngMat.getCmnd());
+            if (txtCmndNgKhai.getText().trim().equalsIgnoreCase("admin")) {
+                model.setGhiChu("Qua đời. Khai tử bởi: admin");
+            } else {
+                model.setGhiChu("Qua đời. Khai tử bởi: " + txtHoTenNgKhai.getText() + " - " + txtCmndNgKhai.getText() + " - "
+                        + txtSđt.getText());
+            }
+            hkInfoController.themThayDoiHK(model);
+
+            if (hoKhau != null) {
+                hoKhau.setTinhTrang("chuyển đi");
+                hoKhau.setNgayChuyenDi(dateNgayMat.getDate());
+                cnController.capNhatHK(hoKhau.getId(), hoKhau);
+                
+                model.setMaHoKhau(ngMat.getMaHoKhau());
+                model.setThongTinThayDoi("Chuyển đi");
+                model.setNoiDungThayDoi("");
+                model.setGhiChu("");
+                hkInfoController.themThayDoiHK(model);
+            }
 
             JOptionPane.showMessageDialog(rootPane, "Khai tử thành công!");
             MainFrame.it.setEnabled(true);

@@ -22,6 +22,7 @@ import models.GiaDinhModel;
 import models.HoKhauModel;
 import models.NhanKhauModel;
 import models.ThanhVienModel;
+import models.ThayDoiHKModel;
 import utilities.MysqlConnection;
 
 /**
@@ -36,6 +37,8 @@ public class HoKhau_Info extends javax.swing.JFrame {
     HoKhauModel hoKhau;
     private List<ThanhVienModel> listTV = new ArrayList<>();
     private DefaultTableModel tableModel;
+    private List<ThayDoiHKModel> listLS = new ArrayList<>();
+    private DefaultTableModel tableModelLS;
     public JButton btn1;
     public JButton btn2;
     public JButton btn3;
@@ -50,6 +53,7 @@ public class HoKhau_Info extends javax.swing.JFrame {
         this.btn3 = btnChuyenDi;
         this.hoKhau = hoKhau;
         this.tableModel = (DefaultTableModel) table.getModel();
+        this.tableModelLS = (DefaultTableModel) table1.getModel();
 
         txtMaHK.setText(hoKhau.getMaHoKhau());
         txtCmnd.setText(hoKhau.getCmndChuHo());
@@ -59,6 +63,8 @@ public class HoKhau_Info extends javax.swing.JFrame {
 
         listTV = findMember();
         showMember();
+        listLS = findLichSuHK(hoKhau.getMaHoKhau());
+        showLichSuHK();
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -98,7 +104,8 @@ public class HoKhau_Info extends javax.swing.JFrame {
                         + "WHERE tinhtrang LIKE 'sinh sống' "
                         + "OR (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) "
                         + "OR (tinhtrang LIKE 'chuyển đi' AND ngaychuyendi > curdate()) "
-                        + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate()) ";
+                        + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate()) "
+                        + "ORDER BY ngaysinh";
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     ResultSet rs = preparedStatement.executeQuery();
 
@@ -148,7 +155,43 @@ public class HoKhau_Info extends javax.swing.JFrame {
         }
         return list;
     }
+    
+    private void showLichSuHK() {
+        tableModelLS.setRowCount(0);
 
+        listLS.forEach(item -> {
+            tableModelLS.addRow(new Object[]{tableModelLS.getRowCount() + 1, item.getNgayThayDoi(), item.getThongTinThayDoi(),
+                item.getNoiDungThayDoi(), item.getGhiChu()});
+        });
+    }
+
+    private List<ThayDoiHKModel> findLichSuHK(String maHoKhau) {
+        List<ThayDoiHKModel> list = new ArrayList<>();
+        try {
+            try ( Connection connection = MysqlConnection.getMysqlConnection()) {
+                String query = "SELECT *  FROM thaydoihokhau "
+                        + "WHERE mahokhau LIKE '" + maHoKhau + "' "
+                        + "ORDER BY id";
+                try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                    ResultSet rs = preparedStatement.executeQuery();
+
+                    while (rs.next()) {
+                        ThayDoiHKModel model = new ThayDoiHKModel();
+
+                        model.setNgayThayDoi(rs.getDate("ngaytdoi"));
+                        model.setThongTinThayDoi(rs.getString("ttintdoi"));
+                        model.setNoiDungThayDoi(rs.getString("ndtdoi"));
+                        model.setGhiChu(rs.getString("ghichu"));
+
+                        list.add(model);
+                    }
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+        return list;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,6 +222,11 @@ public class HoKhau_Info extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Thông tin chi tiết");
@@ -359,6 +407,12 @@ public class HoKhau_Info extends javax.swing.JFrame {
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setMinWidth(30);
             table.getColumnModel().getColumn(0).setMaxWidth(30);
+            table.getColumnModel().getColumn(1).setMinWidth(100);
+            table.getColumnModel().getColumn(1).setMaxWidth(100);
+            table.getColumnModel().getColumn(4).setMinWidth(90);
+            table.getColumnModel().getColumn(4).setMaxWidth(90);
+            table.getColumnModel().getColumn(5).setHeaderValue("QH với chủ hộ");
+            table.getColumnModel().getColumn(6).setHeaderValue("Tình trạng");
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -378,6 +432,70 @@ public class HoKhau_Info extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel7.setBackground(new java.awt.Color(204, 255, 255));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Lịch sử thay đổi hộ khẩu");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+        );
+
+        jPanel8.setBackground(new java.awt.Color(204, 255, 255));
+
+        table1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Ngày thay đổi", "Thông tin thay đổi", "Nội dung thay đổi", "Ghi chú"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table1.setRowHeight(22);
+        jScrollPane2.setViewportView(table1);
+        if (table1.getColumnModel().getColumnCount() > 0) {
+            table1.getColumnModel().getColumn(0).setMinWidth(30);
+            table1.getColumnModel().getColumn(0).setMaxWidth(30);
+            table1.getColumnModel().getColumn(1).setMinWidth(90);
+            table1.getColumnModel().getColumn(1).setMaxWidth(90);
+            table1.getColumnModel().getColumn(2).setMinWidth(100);
+            table1.getColumnModel().getColumn(2).setMaxWidth(100);
+        }
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -386,6 +504,8 @@ public class HoKhau_Info extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,7 +516,11 @@ public class HoKhau_Info extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -423,22 +547,23 @@ public class HoKhau_Info extends javax.swing.JFrame {
     private javax.swing.JButton btnDoiChuHo;
     private javax.swing.JButton btnTachHo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable table;
+    private javax.swing.JTable table1;
     private javax.swing.JTextField txtCmnd;
     private javax.swing.JTextField txtDc;
     private javax.swing.JTextField txtHoTen;

@@ -7,6 +7,7 @@ package displays.Function1Manager;
 
 import controllers.Function1.CapNhatController;
 import controllers.Function1.HoKhauController;
+import controllers.Function1.HoKhau_InfoController;
 import controllers.Function1.NhanKhauController;
 import controllers.Function1.ThemMoiController;
 import displays.MainFrame;
@@ -17,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import models.HoKhauModel;
 import models.NhanKhauModel;
+import models.ThayDoiHKModel;
 
 /**
  *
@@ -356,10 +358,24 @@ public class NhanKhau_ChuyenDi extends javax.swing.JFrame {
             nhanKhau.setNoiDen(txtNoiChuyenDen.getText().trim());
             cnController.capNhatNK(nhanKhau.getId(), nhanKhau);
 
+            HoKhau_InfoController hkInfoController = new HoKhau_InfoController();
+            ThayDoiHKModel model = new ThayDoiHKModel();
+            model.setMaHoKhau(nhanKhau.getMaHoKhau());
+            model.setThongTinThayDoi("Xóa thành viên");
+            model.setNoiDungThayDoi(nhanKhau.getHoTen() + " - " + nhanKhau.getCmnd());
+            model.setGhiChu("Chuyển đến " + nhanKhau.getNoiDen());
+            hkInfoController.themThayDoiHK(model);
+
             if (hoKhau != null) {
                 hoKhau.setTinhTrang("chuyển đi");
                 hoKhau.setNgayChuyenDi(dateNgayChuyenDi.getDate());
                 cnController.capNhatHK(hoKhau.getId(), hoKhau);
+
+                model.setMaHoKhau(nhanKhau.getMaHoKhau());
+                model.setThongTinThayDoi("Chuyển đi");
+                model.setNoiDungThayDoi("");
+                model.setGhiChu("");
+                hkInfoController.themThayDoiHK(model);
             }
 
             JOptionPane.showMessageDialog(rootPane, "Đăng ký chuyển đi thành công!");
