@@ -65,7 +65,6 @@ public class ThemMoiController {
                     HoKhau_Info info = new HoKhau_Info(temp);
                     info.btn1.setVisible(false);
                     info.btn2.setVisible(false);
-                    info.btn3.setVisible(false);
                     MainFrame.it.setEnabled(false);
                     info.setLocationRelativeTo(null);
                     info.setVisible(true);

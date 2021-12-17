@@ -423,12 +423,14 @@ public class NhanKhau_KhaiTu extends javax.swing.JFrame {
                     cnController.capNhatNK(nk.getId(), nk);
                 } else if (nk.getTuNgay().getTime() >= dateNgayMat.getDate().getTime()) {
                     nk.setTinhTrang(null);
-                    cnController.capNhatNK(nk.getId(), nk);
+                    cnController.xoaGD(nk.getId());
+                    cnController.xoaNK(nk.getId());
                 }
             }
             ngMat.setTinhTrang("đã mất");
             ngMat.setNgayChuyenDi(dateNgayMat.getDate());
-            ngMat.setNoiDen("đã qua đời");
+            ngMat.setNoiDen("Qua đời. Khai tử bởi: " + txtHoTenNgKhai.getText() + " - " + txtCmndNgKhai.getText() + " - "
+                    + txtSđt.getText());
             cnController.capNhatNK(ngMat.getId(), ngMat);
 
             HoKhau_InfoController hkInfoController = new HoKhau_InfoController();
@@ -448,7 +450,7 @@ public class NhanKhau_KhaiTu extends javax.swing.JFrame {
                 hoKhau.setTinhTrang("chuyển đi");
                 hoKhau.setNgayChuyenDi(dateNgayMat.getDate());
                 cnController.capNhatHK(hoKhau.getId(), hoKhau);
-                
+
                 model.setMaHoKhau(ngMat.getMaHoKhau());
                 model.setThongTinThayDoi("Chuyển đi");
                 model.setNoiDungThayDoi("");

@@ -34,6 +34,7 @@ public class HoKhau_Info extends javax.swing.JFrame {
     /**
      * Creates new form HoKhau_Info
      */
+    public static HoKhau_Info it;
     HoKhauModel hoKhau;
     private List<ThanhVienModel> listTV = new ArrayList<>();
     private DefaultTableModel tableModel;
@@ -41,16 +42,15 @@ public class HoKhau_Info extends javax.swing.JFrame {
     private DefaultTableModel tableModelLS;
     public JButton btn1;
     public JButton btn2;
-    public JButton btn3;
 
     public HoKhau_Info() {
     }
 
     public HoKhau_Info(HoKhauModel hoKhau) {
+        it = this;
         initComponents();
         this.btn1 = btnDoiChuHo;
         this.btn2 = btnTachHo;
-        this.btn3 = btnChuyenDi;
         this.hoKhau = hoKhau;
         this.tableModel = (DefaultTableModel) table.getModel();
         this.tableModelLS = (DefaultTableModel) table1.getModel();
@@ -214,7 +214,6 @@ public class HoKhau_Info extends javax.swing.JFrame {
         txtDc = new javax.swing.JTextField();
         btnDoiChuHo = new javax.swing.JButton();
         btnTachHo = new javax.swing.JButton();
-        btnChuyenDi = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -230,6 +229,7 @@ public class HoKhau_Info extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Thông tin chi tiết");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -273,12 +273,9 @@ public class HoKhau_Info extends javax.swing.JFrame {
 
         btnTachHo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnTachHo.setText("Tách hộ ");
-
-        btnChuyenDi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnChuyenDi.setText("Chuyển đi");
-        btnChuyenDi.addActionListener(new java.awt.event.ActionListener() {
+        btnTachHo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChuyenDiActionPerformed(evt);
+                btnTachHoActionPerformed(evt);
             }
         });
 
@@ -288,13 +285,7 @@ public class HoKhau_Info extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(99, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnDoiChuHo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnTachHo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(btnChuyenDi, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -309,8 +300,13 @@ public class HoKhau_Info extends javax.swing.JFrame {
                                 .addComponent(txtDc)
                                 .addComponent(txtMaHK, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtHoTen, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtCmnd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(84, 84, 84))
+                                .addComponent(txtCmnd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(84, 84, 84))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnDoiChuHo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(btnTachHo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(131, 131, 131))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,10 +335,9 @@ public class HoKhau_Info extends javax.swing.JFrame {
                     .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDoiChuHo)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTachHo)
-                    .addComponent(btnChuyenDi))
+                    .addComponent(btnDoiChuHo))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -411,8 +406,6 @@ public class HoKhau_Info extends javax.swing.JFrame {
             table.getColumnModel().getColumn(1).setMaxWidth(100);
             table.getColumnModel().getColumn(4).setMinWidth(90);
             table.getColumnModel().getColumn(4).setMaxWidth(90);
-            table.getColumnModel().getColumn(5).setHeaderValue("QH với chủ hộ");
-            table.getColumnModel().getColumn(6).setHeaderValue("Tình trạng");
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -534,16 +527,18 @@ public class HoKhau_Info extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNgayTaoActionPerformed
 
-    private void btnChuyenDiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChuyenDiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnChuyenDiActionPerformed
+    private void btnTachHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTachHoActionPerformed
+        HoKhau_TachHK tachHK = new HoKhau_TachHK(hoKhau, listTV);
+        it.setEnabled(false);
+        tachHK.setLocationRelativeTo(null);
+        tachHK.setVisible(true);
+    }//GEN-LAST:event_btnTachHoActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChuyenDi;
     private javax.swing.JButton btnDoiChuHo;
     private javax.swing.JButton btnTachHo;
     private javax.swing.JLabel jLabel1;

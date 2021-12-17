@@ -93,4 +93,29 @@ public class CapNhatController {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    public void xoaNK(int id) {
+        try {
+            try ( Connection connection = MysqlConnection.getMysqlConnection()) {
+                String query = "DELETE FROM nhankhau WHERE id = " + id;
+                try ( PreparedStatement st = connection.prepareStatement(query)) {
+                    st.execute();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public void xoaGD(int id) {
+        try {
+            try ( Connection connection = MysqlConnection.getMysqlConnection()) {
+                String query = "DELETE FROM giadinh WHERE idnhankhau = " + id;
+                try ( PreparedStatement st = connection.prepareStatement(query)) {
+                    st.execute();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }        
+    }
 }

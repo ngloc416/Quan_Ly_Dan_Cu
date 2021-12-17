@@ -87,7 +87,7 @@ public class NhanKhauController {
                         + "OR (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) "
                         + "OR (tinhtrang LIKE 'chuyển đi' AND ngaychuyendi > curdate()) "
                         + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate()) "
-                        + "ORDER BY mahokhau, hoten";
+                        + "ORDER BY mahokhau, ngaysinh";
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     ResultSet rs = preparedStatement.executeQuery();
 
@@ -171,7 +171,7 @@ public class NhanKhauController {
                         + "OR (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) "
                         + "OR (tinhtrang LIKE 'chuyển đi' AND ngaychuyendi > curdate()) "
                         + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate())) "
-                        + "ORDER BY mahokhau, hoten";
+                        + "ORDER BY mahokhau, ngaysinh";
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     ResultSet rs = preparedStatement.executeQuery();
 

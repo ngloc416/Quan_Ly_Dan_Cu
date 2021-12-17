@@ -7,6 +7,7 @@ package controllers.Function1;
 
 import displays.Function1Manager.NhanKhau_Info;
 import displays.MainFrame;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -35,6 +37,7 @@ public class ThongKeController {
     private JTextField txtDenTuoi;
     private JTextField txtTuNgay;
     private JTextField txtDenNgay;
+    private JButton btnTimKiem;
     private String ngheNghiep;
     private DefaultTableModel tableModel;
     private List<NhanKhauModel> listNK = new ArrayList<>();
@@ -57,13 +60,13 @@ public class ThongKeController {
         this.txtDenNgay = new JTextField();
         this.txtDenNgay.setText("");
         this.ngheNghiep = nghe.trim();
-        
+
         return find();
-        
+
     }
-    
+
     public ThongKeController(JComboBox cbGioiTinh, JComboBox cbTinhTrang, JTextField txtTuTuoi,
-            JTextField txtDenTuoi, JTextField txtTuNgay, JTextField txtDenNgay, JTable table) {
+            JTextField txtDenTuoi, JTextField txtTuNgay, JTextField txtDenNgay, JTable table, JButton btnTimKiem) {
         this.cbGioiTinh = cbGioiTinh;
         this.cbTinhTrang = cbTinhTrang;
         this.txtTuTuoi = txtTuTuoi;
@@ -72,10 +75,13 @@ public class ThongKeController {
         this.txtDenNgay = txtDenNgay;
         this.tableModel = (DefaultTableModel) table.getModel();
         this.ngheNghiep = "";
+        this.btnTimKiem = btnTimKiem;
 
-        listNK = find();
-        showNhanKhau();
-        
+        this.btnTimKiem.addActionListener((ActionEvent e) -> {
+            listNK = find();
+            showNhanKhau();
+        });
+
         //xu ly su kien khi nhay dup vao 1 hang trong bang
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -99,8 +105,7 @@ public class ThongKeController {
         listNK.forEach(item -> {
             tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, item.getMaHoKhau(), item.getCmnd(),
                 item.getHoTen(), item.getNgaySinh(), item.getGioiTinh(), item.getDcHienNay(),
-                (("cập nhật".equals(item.getTinhTrang().trim())) || ("chuyển đi".equals(item.getTinhTrang().trim()))
-                || ("đã mất".equals(item.getTinhTrang().trim()))) ? "sinh sống" : item.getTinhTrang()});
+                ("cập nhật".equals(item.getTinhTrang().trim())) ? "sinh sống" : item.getTinhTrang()});
         });
     }
 
@@ -120,13 +125,18 @@ public class ThongKeController {
                             + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate())) ";
                 } else {
                     if (txtTuNgay.getText().trim().isEmpty() && txtDenNgay.getText().trim().isEmpty()) { //nếu tungay, denngay rỗng thì tìm tại thời điểm hiện tại
-                        if (cbTinhTrang.getSelectedItem().toString().trim().equals("Sinh sống và có hộ khẩu tại đây")) {
-                            query += "WHERE ((tinhtrang LIKE 'sinh sống') "
-                                    + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate())) ";
-                        } else if (cbTinhTrang.getSelectedItem().toString().trim().equals("Tạm trú")) {
-                            query += "WHERE (tinhtrang LIKE 'tạm trú' AND tungay <= curdate() AND denngay >= curdate()) ";
-                        } else if (cbTinhTrang.getSelectedItem().toString().trim().equals("Tạm vắng")) {
-                            query += "WHERE (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) ";
+                        switch (cbTinhTrang.getSelectedItem().toString().trim()) {
+                            case "Sinh sống và có hộ khẩu tại đây" ->
+                                query += "WHERE ((tinhtrang LIKE 'sinh sống') "
+                                        + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate())) ";
+                            case "Tạm trú" ->
+                                query += "WHERE (tinhtrang LIKE 'tạm trú' AND tungay <= curdate() AND denngay >= curdate()) ";
+                            case "Tạm vắng" ->
+                                query += "WHERE (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) ";
+                            case "Qua đời/Chuyển đi" ->
+                                query += "WHERE ((tinhtrang LIKE 'đã mất') OR (tinhtrang LIKE 'chuyển đi')) ";
+                            default -> {
+                            }
                         }
                     } else {
                         if (txtTuNgay.getText().trim().isEmpty()) {
@@ -135,18 +145,25 @@ public class ThongKeController {
                         if (txtDenNgay.getText().trim().isEmpty()) {
                             txtDenNgay.setText("3000-1-1");
                         }
-                        if (cbTinhTrang.getSelectedItem().toString().trim().equals("Sinh sống và có hộ khẩu tại đây")) {
-                            query += "WHERE ((tinhtrang LIKE 'sinh sống' "
-                                    + "OR tinhtrang LIKE 'chuyển đi' OR tinhtrang LIKE 'đã mất' "
-                                    + "OR (tinhtrang LIKE 'cập nhật' AND tungay > '" + txtTuNgay.getText().trim() + "')) "
-                                    + "AND ngaychuyenden <= '" + txtDenNgay.getText().trim() + "' "
-                                    + "AND ngaychuyendi >= '" + txtTuNgay.getText().trim() + "') ";
-                        } else if (cbTinhTrang.getSelectedItem().toString().trim().equals("Tạm trú")) {
-                            query += "WHERE (tinhtrang LIKE 'tạm trú' AND tungay <= '" + txtDenNgay.getText().trim() + "' "
-                                    + "AND denngay >= '" + txtTuNgay.getText().trim() + "') ";
-                        } else if (cbTinhTrang.getSelectedItem().toString().trim().equals("Tạm vắng")) {
-                            query += "WHERE (tinhtrang LIKE 'tạm vắng' AND tungay <= '" + txtDenNgay.getText().trim() + "' "
-                                    + "AND denngay >= '" + txtTuNgay.getText().trim() + "') ";
+                        switch (cbTinhTrang.getSelectedItem().toString().trim()) {
+                            case "Sinh sống và có hộ khẩu tại đây" ->
+                                query += "WHERE ((tinhtrang LIKE 'sinh sống' "
+                                        + "OR tinhtrang LIKE 'chuyển đi' OR tinhtrang LIKE 'đã mất' "
+                                        + "OR (tinhtrang LIKE 'cập nhật' AND tungay > '" + txtTuNgay.getText().trim() + "')) "
+                                        + "AND ngaychuyenden <= '" + txtDenNgay.getText().trim() + "' "
+                                        + "AND ngaychuyendi >= '" + txtTuNgay.getText().trim() + "') ";
+                            case "Tạm trú" ->
+                                query += "WHERE (tinhtrang LIKE 'tạm trú' AND tungay <= '" + txtDenNgay.getText().trim() + "' "
+                                        + "AND denngay >= '" + txtTuNgay.getText().trim() + "') ";
+                            case "Tạm vắng" ->
+                                query += "WHERE (tinhtrang LIKE 'tạm vắng' AND tungay <= '" + txtDenNgay.getText().trim() + "' "
+                                        + "AND denngay >= '" + txtTuNgay.getText().trim() + "') ";
+                            case "Qua đời/Chuyển đi" ->
+                                query += "WHERE (((tinhtrang LIKE 'đã mất') OR (tinhtrang LIKE 'chuyển đi')) "
+                                        + "AND ngaychuyendi <= '" + txtDenNgay.getText().trim() + "' "
+                                        + "AND ngaychuyendi >= '" + txtTuNgay.getText().trim() + "') ";
+                            default -> {
+                            }
                         }
                     }
                 }
@@ -162,12 +179,12 @@ public class ThongKeController {
                 if (!txtDenTuoi.getText().trim().isEmpty()) {
                     query += "AND ROUND(DATEDIFF(CURDATE(), ngaysinh) / 365, 0) <= " + txtDenTuoi.getText().trim() + " ";
                 }
-                
+
                 if (!ngheNghiep.isEmpty()) {
                     query += "AND nghenghiep LIKE '" + ngheNghiep + "' ";
                 }
 
-                query += "ORDER BY mahokhau, hoten";
+                query += "ORDER BY mahokhau, ngaysinh";
 
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                     ResultSet rs = preparedStatement.executeQuery();
