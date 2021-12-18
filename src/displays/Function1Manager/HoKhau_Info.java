@@ -270,6 +270,11 @@ public class HoKhau_Info extends javax.swing.JFrame {
 
         btnDoiChuHo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnDoiChuHo.setText("Đổi chủ hộ");
+        btnDoiChuHo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoiChuHoActionPerformed(evt);
+            }
+        });
 
         btnTachHo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnTachHo.setText("Tách hộ ");
@@ -454,7 +459,7 @@ public class HoKhau_Info extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -528,11 +533,20 @@ public class HoKhau_Info extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNgayTaoActionPerformed
 
     private void btnTachHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTachHoActionPerformed
+        listTV = findMember();
         HoKhau_TachHK tachHK = new HoKhau_TachHK(hoKhau, listTV);
         it.setEnabled(false);
         tachHK.setLocationRelativeTo(null);
         tachHK.setVisible(true);
     }//GEN-LAST:event_btnTachHoActionPerformed
+
+    private void btnDoiChuHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiChuHoActionPerformed
+        listTV = findMember();
+        HoKhau_DoiChuHo doiChuHo = new HoKhau_DoiChuHo(hoKhau, listTV);
+        it.setEnabled(false);
+        doiChuHo.setLocationRelativeTo(null);
+        doiChuHo.setVisible(true);
+    }//GEN-LAST:event_btnDoiChuHoActionPerformed
 
     /**
      * @param args the command line arguments

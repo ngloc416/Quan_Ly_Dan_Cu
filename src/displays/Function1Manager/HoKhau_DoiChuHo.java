@@ -7,13 +7,11 @@ package displays.Function1Manager;
 
 import controllers.Function1.CapNhatController;
 import controllers.Function1.HoKhau_InfoController;
-import controllers.Function1.ThemMoiController;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -26,10 +24,10 @@ import models.ThayDoiHKModel;
  *
  * @author Loc Nguyen
  */
-public class HoKhau_TachHK extends javax.swing.JFrame {
+public class HoKhau_DoiChuHo extends javax.swing.JFrame {
 
     /**
-     * Creates new form HoKhau_TachHK
+     * Creates new form HoKhau_DoiChuHo
      */
     HoKhauModel hoKhau;
     private List<ThanhVienModel> listOld = new ArrayList<>();
@@ -37,27 +35,20 @@ public class HoKhau_TachHK extends javax.swing.JFrame {
     private List<ThanhVienModel> listNew = new ArrayList<>();
     private DefaultTableModel tableModelNew;
     private CapNhatController cnController;
-    private ThemMoiController tmController;
     private HoKhau_InfoController hkInfoController;
-    private HoKhauModel hkMoi;
+    private String ttinChuHoCu;
     boolean checkChuHo = false; //check hộ mới có chủ hộ chưa
 
-    public HoKhau_TachHK(HoKhauModel hoKhau, List<ThanhVienModel> list) {
-
+    public HoKhau_DoiChuHo(HoKhauModel hoKhau, List<ThanhVienModel> list) {
         initComponents();
-        this.hkMoi = new HoKhauModel();
         cnController = new CapNhatController();
-        tmController = new ThemMoiController();
         this.hkInfoController = new HoKhau_InfoController();
-
+        
+        this.ttinChuHoCu = hoKhau.getHoTenChuHo() + " - " + hoKhau.getCmndChuHo();
         this.listOld = list;
         this.hoKhau = hoKhau;
         this.tableModelOld = (DefaultTableModel) table1.getModel();
         this.tableModelNew = (DefaultTableModel) table2.getModel();
-        txtmaHK.setText(tmController.taoMaHK());
-        hkMoi.setMaHoKhau(txtmaHK.getText().trim());
-        hkMoi.setNgayLap(new Date());
-        hkMoi.setTinhTrang("sinh sống");
         showOld();
 
         table1.addMouseListener(new MouseAdapter() {
@@ -65,41 +56,38 @@ public class HoKhau_TachHK extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 1) {
                     ThanhVienModel temp = listOld.get(table1.getSelectedRow());
-                    if (JOptionPane.showConfirmDialog(null, "Chuyển người này sang hộ mới?", "Warning!", JOptionPane.YES_NO_OPTION) == 0) {
-                        if (temp.giaDinh.getQhChuHo().equalsIgnoreCase("chủ hộ")) {
-                            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn thành viên khác làm chủ hộ mới!", "Warning!", JOptionPane.WARNING_MESSAGE);
-                        } else if (listNew.contains(temp)) {
-                            JOptionPane.showMessageDialog(rootPane, "Thành viên này đã có trong hộ mới!", "Warning!", JOptionPane.WARNING_MESSAGE);
-                        } else {
-                            try {
-                                temp.giaDinh.setQhChuHo("." + JOptionPane.showInputDialog("Điền quan hệ với chủ hộ mới:").trim());
-                                if (temp.giaDinh.getQhChuHo().equalsIgnoreCase(".chủ hộ")) {
-                                    if (checkChuHo) {
-                                        JOptionPane.showMessageDialog(rootPane, "Hộ mới đã có chủ hộ!", "Warning!", JOptionPane.WARNING_MESSAGE);
-                                    } else {
-                                        checkChuHo = true;
-                                        hkMoi.setCmndChuHo(temp.nhanKhau.getCmnd());
-                                        listNew.add(temp);
-                                        showNew();
-                                    }
+                    if (listNew.contains(temp)) {
+                        JOptionPane.showMessageDialog(rootPane, "Đã chỉnh sửa thành viên này!", "Warning!", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        try {
+                            temp.giaDinh.setQhChuHo("." + JOptionPane.showInputDialog("Điền quan hệ với chủ hộ mới:").trim());
+                            if (temp.giaDinh.getQhChuHo().equalsIgnoreCase(".chủ hộ")) {
+                                if (checkChuHo) {
+                                    JOptionPane.showMessageDialog(rootPane, "Đã có chủ hộ!", "Warning!", JOptionPane.WARNING_MESSAGE);
                                 } else {
+                                    hoKhau.setCmndChuHo(temp.nhanKhau.getCmnd());
+                                    hoKhau.setHoTenChuHo(temp.nhanKhau.getHoTen());
+                                    checkChuHo = true;
                                     listNew.add(temp);
                                     showNew();
                                 }
-                            } catch (NullPointerException ee) {
+                            } else {
+                                listNew.add(temp);
+                                showNew();
                             }
+                        } catch (NullPointerException ee) {
                         }
                     }
                 }
             }
         });
-
+        
         table2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 1) {
                     ThanhVienModel temp = listNew.get(table2.getSelectedRow());
-                    if (JOptionPane.showConfirmDialog(null, "Xóa người này khỏi hộ mới?", "Warning!", JOptionPane.YES_NO_OPTION) == 0) {
+                    if (JOptionPane.showConfirmDialog(null, "Xóa người này?", "Warning!", JOptionPane.YES_NO_OPTION) == 0) {
                         if (listNew.remove(temp)) {
                             showNew();
                         }
@@ -166,16 +154,12 @@ public class HoKhau_TachHK extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtmaHK = new javax.swing.JTextField();
-        btnTachHo = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        txtDiaChi = new javax.swing.JTextField();
+        btnDoiChuHo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tách hộ khẩu");
+        setTitle("Đổi chủ hộ");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
@@ -248,36 +232,22 @@ public class HoKhau_TachHK extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Hộ khẩu ban đầu:");
+        jLabel1.setText("Hộ khẩu trước khi đổi chủ hộ:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("Hộ khẩu mới:");
+        jLabel2.setText("Hộ khẩu sau khi đổi chủ hộ:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Mã hộ khẩu mới:");
-
-        txtmaHK.setEditable(false);
-
-        btnTachHo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnTachHo.setText("Tách hộ");
-        btnTachHo.addActionListener(new java.awt.event.ActionListener() {
+        btnDoiChuHo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnDoiChuHo.setText("Đổi chủ hộ");
+        btnDoiChuHo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTachHoActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Địa chỉ hộ mới:");
-
-        txtDiaChi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDiaChiActionPerformed(evt);
+                btnDoiChuHoActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel5.setText("Nhấn đúp vào một người để chọn");
+        jLabel5.setText("Nhấn đúp vào từng người để chỉnh sửa quan hệ với chủ hộ mới");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 51, 51));
@@ -287,46 +257,32 @@ public class HoKhau_TachHK extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(23, 23, 23)
-                                        .addComponent(txtmaHK, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(104, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 486, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnTachHo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnDoiChuHo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addComponent(jLabel5)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))))))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,21 +297,13 @@ public class HoKhau_TachHK extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtmaHK, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTachHo)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(btnDoiChuHo)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -372,55 +320,38 @@ public class HoKhau_TachHK extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTachHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTachHoActionPerformed
-        if (tableModelNew.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng thêm nhân khẩu vào hộ mới!", "Warning!", JOptionPane.WARNING_MESSAGE);
+    private void btnDoiChuHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiChuHoActionPerformed
+        if (tableModelNew.getRowCount() != tableModelOld.getRowCount()) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chỉnh sửa quan hệ với chủ hộ mới của tất cả thành viên!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else if (checkChuHo == false) {
             JOptionPane.showMessageDialog(rootPane, "Hộ mới chưa có chủ hộ!", "Warning!", JOptionPane.WARNING_MESSAGE);
-        } else if (txtDiaChi.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập địa chỉ hộ mới!", "Warning!", JOptionPane.WARNING_MESSAGE);
         } else {
-            hkMoi.setDiaChi(txtDiaChi.getText().trim());
-            tmController.themHoKhau(hkMoi);
             ThayDoiHKModel model = new ThayDoiHKModel();
-            model.setMaHoKhau(hkMoi.getMaHoKhau());
-            model.setThongTinThayDoi("Chuyển đến");
+            model.setMaHoKhau(hoKhau.getMaHoKhau());
+            model.setThongTinThayDoi("Đổi chủ hộ");
+            model.setNoiDungThayDoi("Đổi từ: " + ttinChuHoCu);
+            model.setGhiChu("Thành: " + hoKhau.getHoTenChuHo() + " - " + hoKhau.getCmndChuHo());
             hkInfoController.themThayDoiHK(model);
+            cnController.capNhatHK(hoKhau.getId(), hoKhau);
+            
             listNew.forEach(item -> {
-                cnController.xoaGD(item.nhanKhau.getId());
-                model.setMaHoKhau(hoKhau.getMaHoKhau());
-                model.setThongTinThayDoi("Xóa thành viên");
-                model.setNoiDungThayDoi(item.nhanKhau.getHoTen() + " - " + item.nhanKhau.getCmnd());
-                model.setGhiChu("Chuyển đến hộ " + hkMoi.getMaHoKhau());
-                hkInfoController.themThayDoiHK(model);
-                tmController.themGiaDinh(item.nhanKhau.getCmnd(), hkMoi.getMaHoKhau(), item.giaDinh.getQhChuHo().substring(1));
-                model.setMaHoKhau(hkMoi.getMaHoKhau());
-                model.setThongTinThayDoi("Thêm thành viên");
-                model.setNoiDungThayDoi(item.nhanKhau.getHoTen() + " - " + item.nhanKhau.getCmnd());
-                model.setGhiChu("");
-                hkInfoController.themThayDoiHK(model);
+                cnController.capNhatGD(item.giaDinh.getId(), item.giaDinh.getQhChuHo().substring(1));                
             });
 
-            JOptionPane.showMessageDialog(rootPane, "Tách hộ thành công!");
+            JOptionPane.showMessageDialog(rootPane, "Đổi chủ hộ thành công!");
             HoKhau_Info.it.setEnabled(true);
             dispose();
         }
-    }//GEN-LAST:event_btnTachHoActionPerformed
-
-    private void txtDiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaChiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDiaChiActionPerformed
+    }//GEN-LAST:event_btnDoiChuHoActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnTachHo;
+    private javax.swing.JButton btnDoiChuHo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
@@ -429,7 +360,5 @@ public class HoKhau_TachHK extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable table1;
     private javax.swing.JTable table2;
-    private javax.swing.JTextField txtDiaChi;
-    private javax.swing.JTextField txtmaHK;
     // End of variables declaration//GEN-END:variables
 }

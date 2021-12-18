@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import models.HoKhauModel;
 import models.NhanKhauModel;
+import models.ThanhVienModel;
 import utilities.MysqlConnection;
 
 /**
@@ -75,7 +76,7 @@ public class CapNhatController {
     public void capNhatHK(int id, HoKhauModel hoKhau) {
         try {
             try ( Connection connection = MysqlConnection.getMysqlConnection()) {
-                String query = "UPDATE hokhau SET tinhtrang = ?, ngaychuyendi = ? WHERE id = " + id;
+                String query = "UPDATE hokhau SET tinhtrang = ?, ngaychuyendi = ?, cmndchuho = ? WHERE id = " + id;
                 try ( PreparedStatement st = connection.prepareStatement(query)) {
 
                     st.setString(1, hoKhau.getTinhTrang());
@@ -85,7 +86,23 @@ public class CapNhatController {
                     } else {
                         st.setDate(2, null);
                     }
+                    st.setString(3, hoKhau.getCmndChuHo());
                     
+                    st.execute();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void capNhatGD(int id, String qhe) {
+        try {
+            try ( Connection connection = MysqlConnection.getMysqlConnection()) {
+                String query = "UPDATE giadinh SET quanhechuho = ? WHERE id = " + id;
+                try ( PreparedStatement st = connection.prepareStatement(query)) {
+                    st.setString(1, qhe);
+                                        
                     st.execute();
                 }
             }
