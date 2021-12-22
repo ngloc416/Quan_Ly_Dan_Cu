@@ -125,7 +125,7 @@ public class NhanKhau_TamVang extends javax.swing.JFrame {
         jLabel5.setText("Nơi thường trú:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("Tạm trú từ ngày:");
+        jLabel6.setText("Tạm vắng từ ngày:");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
