@@ -31,6 +31,7 @@ public class QuanLyQua extends javax.swing.JPanel {
 
     private List<PhanQuaModel> listPQHC;
     private List<PhanQuaModel> listPQLS;
+    public static int tongTienQuaDuTinh = 0;
     Locale localeVN = new Locale("vi", "VN");
     NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
 
@@ -150,10 +151,12 @@ public class QuanLyQua extends javax.swing.JPanel {
     private void hienThiPhanQuaHienCo() {
         DefaultTableModel tableModel = (DefaultTableModel) tblHienCo.getModel();
         tableModel.setRowCount(0);
-
+        tongTienQuaDuTinh = 0;
+        
         listPQHC.forEach(item -> {
             tableModel.addRow(new Object[]{item.getThoiGian(), item.getDip(), currencyVN.format(item.getGiaTri()), item.getTongQua(),
                 currencyVN.format(item.getTongGiaTri())});
+            tongTienQuaDuTinh += item.getTongGiaTri();
         });
     }
 

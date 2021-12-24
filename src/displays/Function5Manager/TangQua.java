@@ -54,7 +54,7 @@ public class TangQua extends javax.swing.JPanel {
         initComponents();
         fillDipComboBox();
         initAction();
-        if (cbChonDip.getSelectedItem().toString().equals("Thưởng học tập")) {
+        if (cbChonDip.getItemCount() != 0 && cbChonDip.getSelectedItem().toString().equals("Thưởng học tập")) {
             txtMC.setVisible(true);
         } else {
             txtMC.setVisible(false);
@@ -615,7 +615,7 @@ public class TangQua extends javax.swing.JPanel {
                         slgQua += (int) tableModel.getValueAt(i, 5);
                     }
                     txtSoLg.setText("" + slgQua);
-                    if (motPhanQua * slgQua > QuanLyQuy.getSoDu()) {
+                    if (motPhanQua*slgQua > (QuanLyQuy.getSoDu() - QuanLyQua.tongTienQuaDuTinh + phanQuaSelected.getGiaTri()*phanQuaSelected.getTongQua())) {
                         JOptionPane.showMessageDialog(null, "Tiền thưởng vượt quá quỹ! Vui lòng nhập lại", "Warning!", JOptionPane.WARNING_MESSAGE);
                         check2 = false;
                     } else {
@@ -642,7 +642,7 @@ public class TangQua extends javax.swing.JPanel {
 
     private void cbChonDipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChonDipActionPerformed
         check1 = false;
-        if (cbChonDip.getSelectedItem().toString().equals("Thưởng học tập")) {
+        if (cbChonDip.getItemCount() != 0 && cbChonDip.getSelectedItem().toString().equals("Thưởng học tập")) {
             txtMC.setVisible(true);
         } else
             txtMC.setVisible(false);
