@@ -237,7 +237,12 @@ public class QuanLyQua extends javax.swing.JPanel {
         jLabel3.setText("Các dịp hiện có:");
 
         cbTenDip.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        cbTenDip.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tết thiếu nhi 1/6", "Trung thu", "Thưởng học tập", "Tết Nguyên Đán" }));
+        cbTenDip.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tết thiếu nhi 1/6", "Trung thu", "Thưởng học tập", "Tết Nguyên Đán", "Khác (Sửa tên dịp tại đây)" }));
+        cbTenDip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTenDipActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Lịch sử tặng quà:");
@@ -363,6 +368,13 @@ public class QuanLyQua extends javax.swing.JPanel {
             hienThiPhanQuaHienCo();
         }
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void cbTenDipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTenDipActionPerformed
+        if (cbTenDip.getSelectedItem().toString().trim().equals("Khác (Sửa tên dịp tại đây)")) {
+            cbTenDip.setEditable(true);
+        } else cbTenDip.setEditable(false);
+    }//GEN-LAST:event_cbTenDipActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
     private javax.swing.JComboBox<String> cbTenDip;

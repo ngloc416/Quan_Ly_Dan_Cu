@@ -183,7 +183,7 @@ public class ThongKeController {
                 if (!ngheNghiep.isEmpty()) {
                     query += "AND nghenghiep LIKE '" + ngheNghiep + "' ";
                 }
-
+                
                 query += "ORDER BY mahokhau, ngaysinh";
 
                 try ( PreparedStatement preparedStatement = connection.prepareStatement(query)) {

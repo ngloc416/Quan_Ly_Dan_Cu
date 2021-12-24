@@ -5,6 +5,7 @@
  */
 package models;
 
+import java.io.InputStream;
 import java.util.Date;
 
 /**
@@ -21,6 +22,7 @@ public class TangQuaModel {
     private Date ngaySinh;
     private int soLuong;
     private int giaTri;
+    private InputStream minhChung;
 
     public int getId() {
         return id;
@@ -85,6 +87,12 @@ public class TangQuaModel {
     public void setGiaTri(int giaTri) {
         this.giaTri = giaTri;
     }
-    
-    
+
+    public InputStream getMinhChung() {
+        return minhChung;
+    }
+
+    public void setMinhChung(InputStream minhChung) {
+        this.minhChung = minhChung;
+    }
 }

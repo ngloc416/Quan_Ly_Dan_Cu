@@ -172,14 +172,18 @@
           <Font name="Tahoma" size="12" style="1"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="5">
             <StringItem index="0" value="T&#x1ebf;t thi&#x1ebf;u nhi 1/6"/>
             <StringItem index="1" value="Trung thu"/>
             <StringItem index="2" value="Th&#x1b0;&#x1edf;ng h&#x1ecd;c t&#x1ead;p"/>
             <StringItem index="3" value="T&#x1ebf;t Nguy&#xea;n &#x110;&#xe1;n"/>
+            <StringItem index="4" value="Kh&#xe1;c (S&#x1eed;a t&#xea;n d&#x1ecb;p t&#x1ea1;i &#x111;&#xe2;y)"/>
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbTenDipActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
