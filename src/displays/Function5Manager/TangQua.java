@@ -54,7 +54,11 @@ public class TangQua extends javax.swing.JPanel {
         initComponents();
         fillDipComboBox();
         initAction();
-        txtMC.setVisible(false);
+        if (cbChonDip.getSelectedItem().toString().equals("Thưởng học tập")) {
+            txtMC.setVisible(true);
+        } else {
+            txtMC.setVisible(false);
+        }
         DefaultTableModel tableModel = (DefaultTableModel) tblDs.getModel();
         //xu ly su kien khi cap nhat bang
         tableModel.addTableModelListener((TableModelEvent e) -> {

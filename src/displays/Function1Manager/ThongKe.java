@@ -286,6 +286,8 @@ public class ThongKe extends javax.swing.JPanel {
         if (cbTinhTrang.getSelectedItem().toString().trim().equals("Toàn bộ")) {
             txtTuNgay.setEditable(false);
             txtDenNgay.setEditable(false);
+            txtTuNgay.setText("");
+            txtDenNgay.setText("");
         } else {
             txtTuNgay.setEditable(true);
             txtDenNgay.setEditable(true);

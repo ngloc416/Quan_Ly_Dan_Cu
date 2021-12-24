@@ -122,7 +122,8 @@ public class ThongKeController {
                             + "OR (tinhtrang LIKE 'tạm trú' AND tungay <= curdate() AND denngay >= curdate()) "
                             + "OR (tinhtrang LIKE 'tạm vắng' AND tungay <= curdate() AND denngay >= curdate()) "
                             + "OR (tinhtrang LIKE 'chuyển đi' AND ngaychuyendi > curdate()) "
-                            + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate())) ";
+                            + "OR (tinhtrang LIKE 'cập nhật' AND tungay > curdate())) "
+                            + "OR ((tinhtrang LIKE 'đã mất') OR (tinhtrang LIKE 'chuyển đi'))";
                 } else {
                     if (txtTuNgay.getText().trim().isEmpty() && txtDenNgay.getText().trim().isEmpty()) { //nếu tungay, denngay rỗng thì tìm tại thời điểm hiện tại
                         switch (cbTinhTrang.getSelectedItem().toString().trim()) {
