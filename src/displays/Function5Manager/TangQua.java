@@ -519,9 +519,9 @@ public class TangQua extends javax.swing.JPanel {
                 tableModel.setRowCount(0);
                 list.forEach(item -> {
                     tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, item.getMaHoKhau(), item.getHoTen(),
-                        item.getNgaySinh(), item.getGioiTinh(), 5});
+                        item.getNgaySinh(), item.getGioiTinh(), 0});
                     tongNg++;
-                    slgQua += 5;
+                    slgQua = 0;
                 });
             }
             txtTongNg.setText("" + tongNg);
