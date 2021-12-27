@@ -3,7 +3,6 @@
  */
 package controllers;
 
-import displays.Home;
 import displays.Function1;
 import displays.Function1Manager.HoKhau;
 import displays.Function1Manager.NhanKhau;
@@ -45,8 +44,6 @@ public class TaskController {
         jpnTask.setBackground(new Color(204, 255, 255));
         JPanel display;
         switch (taskSelected) {
-            case "Home" ->
-                display = new Home();
             case "Function1" ->
                 display = new Function1();
             case "Function5" ->
